@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+    <script>
+        function encryptByDESDefault() {
+            var str = '{"userid":"test","password":"123456","timestamp":1560851008467}';
+            var encrypted = CryptoJS.DES.encrypt(str, 'sgcc');
+            console.log(encrypted);
+            console.log(encrypted.toString());
+            console.log(encrypted.key.toString());
+            console.log(encrypted.iv.toString());
+            console.log(encrypted.salt.toString());
+            console.log(encrypted.ciphertext.toString());
+        }
+
+        function decryptByDESDefault() {
+            var str = 'U2FsdGVkX1830k72zgNoG1ffHnUcW7Z63lZB5HJBpciT1pLCWyIXwf82trvRikVZN8YHDcRP0LK5qS+gbs1U3w5xiG33xiCY8U0nvYjyeic=';
+            var decrypted = CryptoJS.DES.decrypt(str, 'sgcc');
+            console.log(decrypted);
+            console.log(decrypted.toString(CryptoJS.enc.Utf8));
+        }
+
+        function encryptByDES() {
+            var str = '{"userid":"test","password":"123456","timestamp":1560851008467}';
+            var key = CryptoJS.enc.Utf8.parse('sgcc1234');
+            var encrypted = CryptoJS.DES.encrypt(str, key, {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            console.log(encrypted.toString());
+        }
+
+        function decryptByDES() {
+            var str = 'gBt+DMk8lta2HwRPzP33IRB29SZ4F6I2muJP8AsVDhAJrEVFPiAhlwqaCVn4L5OmU7D48VD0lB5/5sw51eHNPg==';
+            var key = CryptoJS.enc.Utf8.parse('sgcc1234');
+            var decrypted = CryptoJS.DES.decrypt(str, key, {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            console.log(decrypted.toString(CryptoJS.enc.Utf8));
+        }
+    </script>
+</head>
+<body>
+<button onclick="encryptByDESDefault()">encryptByDESDefault</button>
+<button onclick="decryptByDESDefault()">decryptByDESDefault</button>
+<button onclick="encryptByDES()">encryptByDES</button>
+<button onclick="decryptByDES()">decryptByDES</button>
+</body>
+</html>
