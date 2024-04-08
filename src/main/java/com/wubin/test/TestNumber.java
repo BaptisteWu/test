@@ -9,7 +9,7 @@ import java.text.DecimalFormat;
 
 public class TestNumber {
 
-    public static void integer() {
+    public static void equalTest() {
         // 装箱，相当于 Integer.valueOf();
         Integer a = 1;
         // 拆箱，相当于a.intValue();

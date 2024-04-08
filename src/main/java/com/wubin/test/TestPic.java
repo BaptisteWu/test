@@ -1,5 +1,6 @@
 package com.wubin.test;
 
+import cn.hutool.core.img.ImgUtil;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.name.Rename;
 
@@ -8,6 +9,8 @@ import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,27 +25,74 @@ public class TestPic {
 //                .size(640, 480)
 //                .toFile("D:\\work\\quye\\test2.jpg");
 //        Thumbnails.of("D:\\work\\quye\\test1.png")
-//                .size(640,480)
+//                .size(640, 480)
 //                .scale(0.2)
 //                .outputQuality(0.5)
 //                .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
 
 //        cut1();
-//        cut2();
 //        cut3();
 //        cutAndScale1();
 //        cutAndScale2();
 
-        compress();
+//        rotateImage();
+//        crop();
+//        crop2();
+
+//        ImgUtil.rotate(new File("D:\\test\\111.jpg"), -90, new File("D:\\test\\999.jpg"));
+//        ImgUtil.cut(new File("D:\\test\\222.jpg"), new File("D:\\test\\444.jpg"), new Rectangle(319, 488, 211, 48));
+//        ImgUtil.scale(new File("D:\\test\\555.jpg"), new File("D:\\test\\666.jpg"), 0.1f);
+//        ImgUtil.compress(new File("D:\\test\\555.jpg"), new File("D:\\test\\666.jpg"), 1.0f);
+//        ImgUtil.gray(new File("D:\\test\\555.jpg"), new File("D:\\test\\666.jpg"));
+//        ImgUtil.flip(new File("D:\\test\\555.jpg"), new File("D:\\test\\666.jpg"));
+//        ImgUtil.convert(new File("D:\\test\\555.jpg"), new File("D:\\test\\666.jpg"));
+//        ImgUtil.binary(new File("D:\\test\\555.jpg"), new File("D:\\test\\666.jpg"));
+//        ImgUtil.slice(new File("D:\\test\\555.jpg"), new File("D:\\test\\666"), 4000, 2670);
     }
 
-    public static void compress() throws IOException {
-//        BufferedImage image = ImageIO.read(new File("D:\\work\\quye\\test1.png"));
-//        BufferedImage bufferedImage = new BufferedImage(640, 320, BufferedImage.TYPE_INT_RGB);
-//        Graphics2D graphics2D = bufferedImage.createGraphics();
-//        graphics2D.drawImage(image, 0, 0, null);
-//        graphics2D.dispose();
-//        ImageIO.write(bufferedImage, "png", new File("D:/test/test11.png"));
+    public static void crop() throws IOException {
+        BufferedImage originalImage = ImageIO.read(new File("D:\\test\\222.jpg"));
+        BufferedImage croppedImage = originalImage.getSubimage(319, 488, 211, 48);
+        ImageIO.write(croppedImage, "jpg", new File("D:\\test\\444.jpg"));
+    }
+
+    public static void crop2() throws IOException {
+        BufferedImage originalImage = ImageIO.read(new File("D:\\test\\222.jpg"));
+        int x = 319;
+        int y = 488;
+        int width = 211;
+        int height = 48;
+        BufferedImage croppedImage = new BufferedImage(width, height, originalImage.getType());
+        Graphics2D graphics2D = croppedImage.createGraphics();
+        graphics2D.drawImage(originalImage, 0, 0, width, height, x, y, x + width, y + height, null);
+        graphics2D.dispose();
+        ImageIO.write(croppedImage, "jpg", new File("D:\\test\\444.jpg"));
+    }
+
+    public static void rotateImage() throws IOException {
+        double angle = 90;
+        BufferedImage originalImage = ImageIO.read(new File("D:\\test\\111.jpg"));
+        int width = originalImage.getWidth();
+        int height = originalImage.getHeight();
+
+        double sin = Math.abs(Math.sin(Math.toRadians(angle)));
+        double cos = Math.abs(Math.cos(Math.toRadians(angle)));
+
+        int newWidth = (int) Math.floor(height * sin + width * cos);
+        int newHeight = (int) Math.floor(height * cos + width * sin);
+
+        BufferedImage rotatedImage = new BufferedImage(newWidth, newHeight, originalImage.getType());
+        Graphics2D g2d = rotatedImage.createGraphics();
+
+        AffineTransform at = new AffineTransform();
+        at.translate((newWidth - width) / 2.0, (newHeight - height) / 2.0);
+        at.rotate(Math.toRadians(angle), width / 2.0, height / 2.0);
+
+        AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_BICUBIC);
+        rotatedImage = op.filter(originalImage, rotatedImage);
+
+        g2d.dispose();
+        ImageIO.write(rotatedImage, "jpg", new File("D:\\test\\999.jpg"));
     }
 
     public static void cut1() throws IOException {
@@ -57,21 +107,6 @@ public class TestPic {
         param.setSourceRegion(rect);
         BufferedImage bufferedImage = imageReader.read(0, param);
         ImageIO.write(bufferedImage, "jpg", new File("D:/test/test1.jpg"));
-    }
-
-    public static void cut2() throws IOException {
-        String inFileName = "D:/test/test.jpg";
-        FileInputStream fis = new FileInputStream(inFileName);
-        BufferedImage image = ImageIO.read(fis);
-
-        int width = 240;
-        int height = 150;
-        BufferedImage bufferedImage = new BufferedImage(width, height, image.getType());
-        Graphics2D graphics2D = bufferedImage.createGraphics();
-        graphics2D.drawImage(image, 0, 0, width, height,
-                240, 0, 480, 150, null);
-        graphics2D.dispose();
-        ImageIO.write(bufferedImage, "jpg", new File("D:/test/test2.jpg"));
     }
 
     public static void cut3() throws IOException {

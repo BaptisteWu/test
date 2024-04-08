@@ -1,10 +1,16 @@
 package com.wubin.test;
 
-import java.net.URL;
+import java.net.*;
+import java.util.Enumeration;
 
 public class TestSys {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SocketException {
+//        getPathTest();
+        getLocalIP();
+    }
+
+    public static void getPathTest() {
 //        System.out.println(System.getProperty("user.dir"));
 //        System.out.println(System.getProperty("user.home"));
 //        System.out.println(System.getProperty("os.name"));
@@ -36,6 +42,35 @@ public class TestSys {
         URL url0 = Thread.currentThread().getContextClassLoader().getResource("testDES.html");
         System.out.println(url9 + "------" + url9.getPath());
         System.out.println(url0 + "------" + url0.getPath());
+    }
+
+    public static void getLocalIP() throws SocketException {
+        Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+        while (networkInterfaces.hasMoreElements()) {
+            NetworkInterface networkInterface = networkInterfaces.nextElement();
+            System.out.println(networkInterface.getName());
+            Enumeration<InetAddress> addresses = networkInterface.getInetAddresses();
+            while (addresses.hasMoreElements()) {
+                InetAddress ip = addresses.nextElement();
+                if (ip instanceof Inet4Address) {
+                    if (ip.isLoopbackAddress()) {
+                        System.out.println("本机ipv4的LoopbackAddress = " + ip.getHostAddress());
+                    } else if (ip.isSiteLocalAddress()) {
+                        System.out.println("本机ipv4的SiteLocalAddress = " + ip.getHostAddress());
+                    } else {
+                        System.out.println("本机ipv4的IP = " + ip.getHostAddress());
+                    }
+                } else if (ip instanceof Inet6Address) {
+                    if (ip.isLoopbackAddress()) {
+                        System.out.println("本机ipv6的LoopbackAddress = " + ip.getHostAddress());
+                    } else if (ip.isSiteLocalAddress()) {
+                        System.out.println("本机ipv6的SiteLocalAddress = " + ip.getHostAddress());
+                    } else {
+                        System.out.println("本机ipv6的IP = " + ip.getHostAddress());
+                    }
+                }
+            }
+        }
     }
 
 }

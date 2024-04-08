@@ -36,9 +36,9 @@ public class TestBeauty1 {
     //https://t91536.xyz:9388/app/#/search/result?keyword=森泽佳奈
     public static void search2_1() {
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("keyword", "西宫");//白木
+        paramMap.put("keyword", "一乃");//白木
         paramMap.put("limit", 10);
-        paramMap.put("page", 1);
+        paramMap.put("page", 2);
         String result = HttpUtil.post(BASE_URL + "/v2/home/search", paramMap);
 
         JSONObject jsonObject = JSONUtil.parseObj(result);
@@ -62,9 +62,9 @@ public class TestBeauty1 {
         //相泽南164 河北彩花167 明里紬176 枫富爱172 伊藤舞雪168 岬奈奈美174 天海翼163
         String body = "{" +
                 "\"category_child_id\":\"\"," +
-                "\"category_id\":\"135\"," +
+                "\"category_id\":\"164\"," +
                 "\"limit\":10," +
-                "\"page\":2" +
+                "\"page\":1" +
                 "}";
         String result = HttpRequest.put(BASE_URL + "/v2/category").body(body).execute().body();
 
