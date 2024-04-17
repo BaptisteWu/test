@@ -31,14 +31,15 @@ public class TestBeauty1 {
     //tai9tai99@gmail.com
     //https://t91951.xyz:9388
     //https://t91651.xyz:9388/
-    private static final String BASE_URL = "https://t91403.xyz:9388";
+//    private static final String BASE_URL = "https://t91403.xyz:9388";
+    private static final String BASE_URL = "https://5d64.t911e.com:7265";
 
     //https://t91536.xyz:9388/app/#/search/result?keyword=森泽佳奈
     public static void search2_1() {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("keyword", "一乃");//白木
         paramMap.put("limit", 10);
-        paramMap.put("page", 2);
+        paramMap.put("page", 1);
         String result = HttpUtil.post(BASE_URL + "/v2/home/search", paramMap);
 
         JSONObject jsonObject = JSONUtil.parseObj(result);
@@ -62,7 +63,7 @@ public class TestBeauty1 {
         //相泽南164 河北彩花167 明里紬176 枫富爱172 伊藤舞雪168 岬奈奈美174 天海翼163
         String body = "{" +
                 "\"category_child_id\":\"\"," +
-                "\"category_id\":\"164\"," +
+                "\"category_id\":\"176\"," +
                 "\"limit\":10," +
                 "\"page\":1" +
                 "}";

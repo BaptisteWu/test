@@ -17,19 +17,21 @@ import java.util.List;
 public class TestDate {
 
     public static void main(String[] args) {
-        try {
-            String[] patterns = {"yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss"};
-            System.out.println(DateUtils.parseDate("2020-8-8", patterns));
-            System.out.println(DateUtils.parseDate("2020-08-08 08:08:08", patterns));
-            System.out.println(DateUtils.parseDateStrictly("2020-8-8", patterns));
-            System.out.println(DateUtils.parseDateStrictly("2020-08-08 08:08:08", patterns));
-            System.out.println(DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
-        } catch (ParseException e) {
-            System.out.println(ExceptionUtils.getStackTrace(e));
-            System.out.println(ExceptionUtil.stacktraceToString(e));
-        }
+//        try {
+//            String[] patterns = {"yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss"};
+//            System.out.println(DateUtils.parseDate("2020-8-8", patterns));
+//            System.out.println(DateUtils.parseDate("2020-08-08 08:08:08", patterns));
+//            System.out.println(DateUtils.parseDateStrictly("2020-8-8", patterns));
+//            System.out.println(DateUtils.parseDateStrictly("2020-08-08 08:08:08", patterns));
+//            System.out.println(DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+//        } catch (ParseException e) {
+//            System.out.println(ExceptionUtils.getStackTrace(e));
+//            System.out.println(ExceptionUtil.stacktraceToString(e));
+//        }
 
-//        System.out.println(DateUtil.parse(DateUtil.today() + " 08:00:00"));
+//        System.out.println(DateUtil.today());
+//        System.out.println(DateUtil.parse("2024-04-04"));
+//        System.out.println(DateUtil.parse("2024-04-04 08:00:00"));
 //        System.out.println(DateUtil.hour(DateUtil.parse("2023-01-31 14:00:00"), true));
 //        System.out.println(DateUtil.thisHour(true));
 

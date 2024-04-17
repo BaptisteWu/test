@@ -26,7 +26,7 @@ public class TestOcr {
 //        paramConfig.setDoAngle(true);
 //        paramConfig.setMostAngle(true);
         System.out.println(new Date());
-        OcrResult ocrResult = engine.runOcr("D:\\test\\222.jpg");
+        OcrResult ocrResult = engine.runOcr("D:\\test\\888.jpg");
         System.out.println(new Date());
         List<TextBlock> list = ocrResult.getTextBlocks();
         for (TextBlock textBlock : list) {

@@ -34,6 +34,7 @@ public class TestHutool {
 //        System.out.println(result);
 
 //        System.out.println(RandomUtil.randomNumbers(6));
+//        System.out.println(RandomUtil.randomInt(-1, 2));
 
 //        String alias = EmojiUtil.toAlias("多多😄");
 //        System.out.println(alias);
