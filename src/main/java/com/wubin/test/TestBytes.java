@@ -81,14 +81,14 @@ public class TestBytes {
         return intToBytes1(intBits);
     }
 
-    public static float bytesToFloat1(byte[] bytes) {
-        int intBits = bytesToInt1(bytes);
-        return Float.intBitsToFloat(intBits);
-    }
-
     public static byte[] floatToBytes2(float f) {
         int intBits = Float.floatToIntBits(f);
         return intToBytes2(intBits);
+    }
+
+    public static float bytesToFloat1(byte[] bytes) {
+        int intBits = bytesToInt1(bytes);
+        return Float.intBitsToFloat(intBits);
     }
 
     public static float bytesToFloat2(byte[] bytes) {
@@ -105,8 +105,8 @@ public class TestBytes {
 //        System.out.println(Arrays.toString(strToBytes("欢迎来到我的世界")));
 //        System.out.println(bytesToStr(new byte[]{-26, -84, -94, -24, -65, -114, -26, -99, -91, -27, -120, -80, -26, -120, -111, -25, -102, -124, -28, -72, -106, -25, -107, -116}));
 
-        System.out.println(Arrays.toString(hexToBytes("E6ACA2E8BF8EE69DA5E588B0E68891E79A84E4B896E7958C")));
-        System.out.println(bytesToHex(new byte[]{-26, -84, -94, -24, -65, -114, -26, -99, -91, -27, -120, -80, -26, -120, -111, -25, -102, -124, -28, -72, -106, -25, -107, -116}));
+//        System.out.println(Arrays.toString(hexToBytes("E6ACA2E8BF8EE69DA5E588B0E68891E79A84E4B896E7958C")));
+//        System.out.println(bytesToHex(new byte[]{-26, -84, -94, -24, -65, -114, -26, -99, -91, -27, -120, -80, -26, -120, -111, -25, -102, -124, -28, -72, -106, -25, -107, -116}));
 
 //        System.out.println(Arrays.toString(objectToBytes(User.builder().id(1).name("张三").birth(new Date()).build())));
 //        System.out.println((User) bytesToObject(new byte[]{-84, -19, 0, 5, 115, 114, 0, 25, 99, 111, 109, 46, 119, 117, 98, 105, 110, 46, 116, 101, 115, 116, 46, 109, 111, 100, 101, 108, 46, 85, 115, 101, 114, 33, 73, -112, 123, -83, 53, -82, -105, 2, 0, 3, 76, 0, 5, 98, 105, 114, 116, 104, 116, 0, 16, 76, 106, 97, 118, 97, 47, 117, 116, 105, 108, 47, 68, 97, 116, 101, 59, 76, 0, 2, 105, 100, 116, 0, 19, 76, 106, 97, 118, 97, 47, 108, 97, 110, 103, 47, 73, 110, 116, 101, 103, 101, 114, 59, 76, 0, 4, 110, 97, 109, 101, 116, 0, 18, 76, 106, 97, 118, 97, 47, 108, 97, 110, 103, 47, 83, 116, 114, 105, 110, 103, 59, 120, 112, 115, 114, 0, 14, 106, 97, 118, 97, 46, 117, 116, 105, 108, 46, 68, 97, 116, 101, 104, 106, -127, 1, 75, 89, 116, 25, 3, 0, 0, 120, 112, 119, 8, 0, 0, 1, 118, 111, 66, -52, -108, 120, 115, 114, 0, 17, 106, 97, 118, 97, 46, 108, 97, 110, 103, 46, 73, 110, 116, 101, 103, 101, 114, 18, -30, -96, -92, -9, -127, -121, 56, 2, 0, 1, 73, 0, 5, 118, 97, 108, 117, 101, 120, 114, 0, 16, 106, 97, 118, 97, 46, 108, 97, 110, 103, 46, 78, 117, 109, 98, 101, 114, -122, -84, -107, 29, 11, -108, -32, -117, 2, 0, 0, 120, 112, 0, 0, 0, 1, 116, 0, 6, -27, -68, -96, -28, -72, -119}));

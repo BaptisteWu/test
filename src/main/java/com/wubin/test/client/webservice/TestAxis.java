@@ -60,9 +60,33 @@ public class TestAxis {
         }
     }
 
+    public static void test() throws ServiceException, MalformedURLException, RemoteException {
+        Service service = new Service();
+        Call call = (Call) service.createCall();
+
+        String endpoint = "http://localhost:8076/ws/checkRecord";
+//        String endpoint = "http://localhost:8076/ws/checkRecord?wsdl";
+        call.setTargetEndpointAddress(new URL(endpoint));
+
+        String namespaceURI = "http://service.main.project.adverse.hlf.com/";
+        String operationName = "test";
+        call.setOperationName(new QName(namespaceURI, operationName));
+
+        //jws通过注解发布的，不需要用QName
+//        call.addParameter("name", XMLType.XSD_STRING, ParameterMode.IN);
+        call.addParameter(new QName(namespaceURI, "name"), XMLType.XSD_STRING, ParameterMode.IN);
+        call.setReturnType(XMLType.XSD_STRING);
+
+        call.setSOAPActionURI(namespaceURI + operationName);
+
+        String result = (String) call.invoke(new Object[]{"吴彬"});
+        System.out.println(result);
+    }
+
     public static void main(String[] args) throws RemoteException, ServiceException, MalformedURLException {
 //        getMobileCodeInfo();
-        getWeatherbyCityName();
+//        getWeatherbyCityName();
+        test();
     }
 
 }

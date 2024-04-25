@@ -21,24 +21,23 @@ import java.util.regex.Pattern;
 
 public class TestBeauty1 {
 
+    //tai9tai99@gmail.com
+    //https://t91651.xyz:9388
+    //https://t91536.xyz:9388
+    //https://c53c.t91zm.com:7265
+    private static final String BASE_URL = "https://5e34.t916fh.pro:8976";
+
     public static void main(String[] args) throws IOException {
-        search2_1();
-//        search2_2();
+//        search2_1();
+        search2_2();
 //        search();
 //        get("/videoplay/?vid=34275");
     }
 
-    //tai9tai99@gmail.com
-    //https://t91951.xyz:9388
-    //https://t91651.xyz:9388/
-//    private static final String BASE_URL = "https://t91403.xyz:9388";
-    private static final String BASE_URL = "https://5d64.t911e.com:7265";
-
-    //https://t91536.xyz:9388/app/#/search/result?keyword=森泽佳奈
     public static void search2_1() {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("keyword", "一乃");//白木
-        paramMap.put("limit", 10);
+        paramMap.put("limit", 20);
         paramMap.put("page", 1);
         String result = HttpUtil.post(BASE_URL + "/v2/home/search", paramMap);
 
@@ -46,25 +45,19 @@ public class TestBeauty1 {
         JSONArray jsonArray = jsonObject.getJSONArray("data");
         for (JSONObject data : jsonArray.jsonIter()) {
             System.out.println(data.getStr("title") + ":" + data.getInt("id"));
-            System.out.println(data.getStr("sl")
-                    .replace("http://23.226.188.186:2100", "https://al1.zabiul.com")
-                    .replace("https://oss.tstdjoiajojkla.com", "https://p1.zacaig.com"));
+            System.out.println(data.getStr("sl"));
             System.out.println();
-//            https://al1.zabiul.com
-//            https://al1.zacuin.com
-//            https://t1.zacuin.com
-//            https://p1.zacaig.com
         }
     }
 
-    //https://t91536.xyz:9388/app/#/category?id=172&child=&name=枫富爱
+    //https://c3.zkxufaz.com
     public static void search2_2() {
         //日韩4 女优专区135
         //相泽南164 河北彩花167 明里紬176 枫富爱172 伊藤舞雪168 岬奈奈美174 天海翼163
         String body = "{" +
                 "\"category_child_id\":\"\"," +
-                "\"category_id\":\"176\"," +
-                "\"limit\":10," +
+                "\"category_id\":\"135\"," +
+                "\"limit\":20," +
                 "\"page\":1" +
                 "}";
         String result = HttpRequest.put(BASE_URL + "/v2/category").body(body).execute().body();
@@ -73,9 +66,7 @@ public class TestBeauty1 {
         JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("data");
         for (JSONObject data : jsonArray.jsonIter()) {
             System.out.println(data.getStr("title") + ":" + data.getInt("id"));
-            System.out.println(data.getStr("sl")
-                    .replace("http://23.226.188.186:2100", "https://al1.zabiul.com")
-                    .replace("https://oss.tstdjoiajojkla.com", "https://p1.zacaig.com"));
+            System.out.println(data.getStr("sl"));
             System.out.println();
         }
     }

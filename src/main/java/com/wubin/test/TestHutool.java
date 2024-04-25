@@ -12,7 +12,10 @@ import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +38,15 @@ public class TestHutool {
 
 //        System.out.println(RandomUtil.randomNumbers(6));
 //        System.out.println(RandomUtil.randomInt(-1, 2));
+
+        System.out.println(URLUtil.encode("https://apis.map.qq.com?a=3 3"));
+        System.out.println(URLUtil.decode("https://apis.map.qq.com%3Fa=3%203"));
+        try {
+            System.out.println(URLEncoder.encode("https://apis.map.qq.com?a=3 3", "UTF-8"));
+            System.out.println(URLDecoder.decode("https%3A%2F%2Fapis.map.qq.com%3Fa%3D3+3", "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
 //        String alias = EmojiUtil.toAlias("多多😄");
 //        System.out.println(alias);

@@ -13,6 +13,7 @@ public class TestHuTool {
                 .setMethod("getMobileCodeInfo", "http://WebXml.com.cn/")
                 .setParam("mobileCode", "18368527925")
                 .setParam("userID", "");
+        System.out.println(client.getMsgStr(true));
         String result = client.send(true);
         System.out.println(result);
         System.out.println("---------------------------");
@@ -25,6 +26,20 @@ public class TestHuTool {
         SoapClient client = SoapClient.create("http://www.webxml.com.cn/WebServices/WeatherWebService.asmx")
                 .setMethod("getWeatherbyCityName", "http://WebXml.com.cn/")
                 .setParam("theCityName", "绍兴");
+        System.out.println(client.getMsgStr(true));
+        String result = client.send(true);
+        System.out.println(result);
+        System.out.println("---------------------------");
+        Document document = XmlUtil.readXML(result);
+        String value = (String) XmlUtil.getByXPath("//soap:Body", document, XPathConstants.STRING);
+        System.out.println(value.trim().replaceAll(" ", ""));
+    }
+
+    public static void test() {
+        SoapClient client = SoapClient.create("http://localhost:8076/ws/checkRecord?wsdl")
+                .setMethod("test", "http://service.main.project.adverse.hlf.com/")
+                .setParam("name", "绍兴");
+        System.out.println(client.getMsgStr(true));
         String result = client.send(true);
         System.out.println(result);
         System.out.println("---------------------------");
@@ -35,7 +50,8 @@ public class TestHuTool {
 
     public static void main(String[] args) {
 //        getMobileCodeInfo();
-        getWeatherbyCityName();
+//        getWeatherbyCityName();
+        test();
     }
 
 }

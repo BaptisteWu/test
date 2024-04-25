@@ -32,9 +32,22 @@ public class TestCxf {
         System.out.println(result[0]);
     }
 
+    public static void test() throws Exception {
+        JaxWsDynamicClientFactory factory = JaxWsDynamicClientFactory.newInstance();
+        Client client = factory.createClient("http://localhost:8076/ws/checkRecord?wsdl");
+
+//        QName qName = new QName("http://service.main.project.adverse.hlf.com/", "test");
+//        Object[] result = client.invoke(qName, "绍兴");
+
+        Object[] result = client.invoke("test", "绍兴");
+
+        System.out.println(result[0]);
+    }
+
     public static void main(String[] args) throws Exception {
-        getMobileCodeInfo();
+//        getMobileCodeInfo();
 //        getWeatherbyCityName();
+        test();
     }
 
 }
