@@ -99,8 +99,8 @@ public class TestNumber {
 
 //        System.out.println(NumberUtil.ceilDiv(239, 60));
 
-        System.out.println(BigDecimal.valueOf(61).divide(BigDecimal.valueOf(60), BigDecimal.ROUND_UP));
-        System.out.println(BigDecimal.valueOf(61).divide(BigDecimal.valueOf(60), 0, BigDecimal.ROUND_UP));
+        System.out.println(BigDecimal.valueOf(61).divide(BigDecimal.valueOf(60), BigDecimal.ROUND_UP).intValue());
+        System.out.println(BigDecimal.valueOf(61).divide(BigDecimal.valueOf(60), 0, BigDecimal.ROUND_UP).intValue());
 
     }
 

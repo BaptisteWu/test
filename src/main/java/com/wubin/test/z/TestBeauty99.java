@@ -28,7 +28,22 @@ public class TestBeauty99 {
                 "D:\\test\\m3u8\\beauty2.txt",
                 "D:\\test\\m3u8\\beauty4.txt",
                 "D:\\test\\m3u8\\beauty5.txt",
-//                "D:\\test\\m3u8\\beauty8.txt",
+                "D:\\test\\m3u8\\beauty8.txt",
+        };
+        String[] targets = new String[]{
+                "801", "499", "476", "390", "412", "469", "491", "509",
+
+                "536", "566", "583", "598", "610", "691", "747", "759",
+
+                "653", "686", "719",
+
+                "156", "175", "183",
+                "204", "226", "239", "244", "264", "272", "280", "297",
+                "326", "356", "367", "378", "389",
+                "414", "436", "451", "463", "468", "482", "490", "495", "498",
+                "522", "531", "540", "551", "563", "579", "591",
+                "613", "620", "624", "660", "664", "675", "680", "687", "696",
+                "714", "726", "742", "746", "758", "776", "781", "817", "837"
         };
         for (String fileName : fileNames) {
             System.out.println(fileName);
@@ -39,17 +54,25 @@ public class TestBeauty99 {
                 if (arr.length > 4) {
                     String title = arr[4];
                     String path = arr[2] + ":" + arr[3];
-                    if (title.toUpperCase().contains("STARS")/* && !title.toUpperCase().contains("JULIA")*/) {
-                        if (path.startsWith("http://baidu.kankandv.xyz")/* && !title.contains("MIDE-063")*/) {
-                            System.out.println(path + ":" + title);
+                    if (title.toUpperCase().contains("WANZ-0")/* && !title.toUpperCase().contains("JULIA")*/) {
+                        System.out.println(path + ":" + title + ":" + arr[1]);
+
+//                        for (String target : targets) {
+//                            if (title.contains(target)) {
+//                                System.out.println(path + ":" + title);
+//                            }
+//                        }
+
+//                        if (path.startsWith("http://baidu.kankandv.xyz")/* && !title.contains("MIDE-063")*/) {
+//                            System.out.println(path + ":" + title);
 //                            try {
 //                                get4(path);
 //                            } catch (IOException e) {
 //                                list2.add(path + ":" + title);
 //                            }
-                        } else {
-                            list2.add(path + ":" + title);
-                        }
+//                        } else {
+//                            list2.add(path + ":" + title);
+//                        }
                     }
                 }
             }
@@ -60,15 +83,15 @@ public class TestBeauty99 {
 
     public static void main(String[] args) throws IOException {
 //        test();
-        get();
+//        get();
 //        get2("index2");
 //        get3("/donei/index66930.html");
 //        get4("http://baidu.kankandv.xyz/share/P7tB6n1EgWKu0fpA");
-//        get5();
+        get5();
     }
 
     private static final File FILE = new File("D:\\test\\m3u8\\beauty_new.txt");
-    private static final String BASE_URL = "http://www.avzz7.top";
+    private static final String BASE_URL = "http://www.avzz16.top";
 //    private static final String BASE_URL = "http://www.anzzcomsjdffdjgj.top:1238";
 //    private static final String BASE_URL = "http://www.anzzcomsjl23gj.top:1238";
 
@@ -77,9 +100,9 @@ public class TestBeauty99 {
     //强奸群交：index5.html
     //亚洲有码：index8.html
     public static void get() throws IOException {
-        String index = "index5";
+        String index = "index2";
         //index2_370
-        for (int i = 1; i <= 2; i++) {
+        for (int i = 1; i <= 58; i++) {
             if (i == 1) {
                 //第一页
                 get2(index);

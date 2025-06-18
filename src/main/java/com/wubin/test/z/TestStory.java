@@ -11,11 +11,137 @@ public class TestStory {
 
     //攻略说，我好像是反派之主
     public static void main(String[] args) throws IOException {
-        story85();
+        story83();
+    }
+
+    public static void story81() throws IOException {
+        String url = "https://www.yingsx.com/77_77623/37161774.html";
+        Document document = Jsoup.connect(url).get();
+//        System.out.println(document.html());
+
+        System.out.println(document.select("div.bookname > h1").first().text());
+
+        Elements elements = document.select("div#content");
+        String content = elements.text();
+//        System.out.println(content);
+        for (String str : content.split("     ")) {
+            if (str.length() > 100) {
+                StringBuilder sb = new StringBuilder(str);
+                System.out.println(sb.insert(50, "\n").insert(100, "\n"));
+            } else if (str.length() > 50) {
+                StringBuilder sb = new StringBuilder(str);
+                System.out.println(sb.insert(50, "\n"));
+            } else if (str.length() > 0) {
+                System.out.println(str);
+            }
+            System.out.println();
+        }
+        Elements elements2 = document.select("div.bottem1 > a");
+        System.out.println(elements2.get(3).attr("href").replace("//www.baode.cc/ob/69633/", ""));
+    }
+
+    //末日：我真不是土匪
+    public static void story82() throws IOException {
+        String url = "https://www.biqusa.com/174_174519/70656029.html";
+        Document document = Jsoup.connect(url).get();
+//        System.out.println(document.html());
+
+        System.out.println(document.select("div.bookname > h1").first().text());
+
+        Elements elements = document.select("div#content");
+        String content = elements.text();
+//        System.out.println(content);
+        for (String str : content.split("    ")) {
+            if (str.length() > 100) {
+                StringBuilder sb = new StringBuilder(str);
+                System.out.println(sb.insert(50, "\n").insert(100, "\n"));
+            } else if (str.length() > 50) {
+                StringBuilder sb = new StringBuilder(str);
+                System.out.println(sb.insert(50, "\n"));
+            } else if (str.length() > 0) {
+                System.out.println(str);
+            }
+            System.out.println();
+        }
+        Elements elements2 = document.select("div.bottem1 > a");
+        System.out.println(elements2.get(3).attr("href"));
+    }
+
+    //灰烬领主
+    public static void story83() throws IOException {
+        //诡异觉醒：开局吞鬼母女姐妹仨
+        //初窥门径，登堂入室，入微大成，炉火纯青，一代宗师，出神入化
+        String url = "https://www.shuhaige.net/311848/113733583.html";
+        //御兽，蛇君
+//        String url = "https://www.shuhaige.net/377044/129862550.html";
+        //星界第三纪元
+//        String url = "https://www.shuhaige.net/290341/130825976_2.html";
+        //御兽：万象与命途
+//        String url = "https://www.shuhaige.net/326515/132362670.html";
+        //灾变卡皇
+//        String url = "https://www.shuhaige.net/239580/92460799.html";
+        //黑暗召唤师：调教末世，为所欲为
+        //星辉、月耀、日冕、天芒、主宰、不朽、永恒、半神
+//        String url = "https://www.shuhaige.net/275992/104818784.html";
+        //异世猎爵:从接肢神尸开始
+//        String url = "https://www.shuhaige.net/306417/122329123_2.html";
+        //末世：薪火崛起
+//        String url = "https://www.shuhaige.net/272921/124650845_2.html";
+        Document document = Jsoup.connect(url).get();
+//        System.out.println(document.html());
+
+        System.out.println(document.select("div.bookname > h1").first().text());
+
+        Elements elements = document.select("div#content > p");
+        String content = elements.text();
+//        System.out.println(content);
+        for (String str : content.split(" ")) {
+            if (str.length() > 100) {
+                StringBuilder sb = new StringBuilder(str);
+                System.out.println(sb.insert(50, "\n").insert(100, "\n"));
+            } else if (str.length() > 50) {
+                StringBuilder sb = new StringBuilder(str);
+                System.out.println(sb.insert(50, "\n"));
+            } else if (str.length() > 0) {
+                System.out.println(str);
+            }
+            System.out.println();
+        }
+        Elements elements2 = document.select("div.bottem1 > a");
+        System.out.println(elements2.get(3).attr("href"));
+    }
+
+    //御兽世界:从蔓珠沙华开始
+    //网游:神级刺客,我即是暗影
+    public static void story84() throws IOException {
+        String url = "https://www.20xs.org/220071/116382293.html";
+//        String url = "https://www.20xs.org/289957/111991381.html";
+        Document document = Jsoup.connect(url).get();
+//        System.out.println(document.html());
+
+        System.out.println(document.select("div.bookname > h1").first().text());
+
+        Elements elements = document.select("div#content > p");
+        String content = elements.text();
+//        System.out.println(content);
+        for (String str : content.split(" ")) {
+            if (str.length() > 100) {
+                StringBuilder sb = new StringBuilder(str);
+                System.out.println(sb.insert(50, "\n").insert(100, "\n"));
+            } else if (str.length() > 50) {
+                StringBuilder sb = new StringBuilder(str);
+                System.out.println(sb.insert(50, "\n"));
+            } else if (str.length() > 0) {
+                System.out.println(str);
+            }
+            System.out.println();
+        }
+        Elements elements2 = document.select("div.bottem1 > a");
+        System.out.println(elements2.get(3).attr("href"));
     }
 
     //我的体内有只鬼
-    public static void story82() throws IOException {
+    public static void story85() throws IOException {
         String url = "https://www.82zg.com/book/48230/19215028.html";
         Document document = Jsoup.connect(url).get();
 //        System.out.println(document.html());
@@ -41,35 +167,8 @@ public class TestStory {
         System.out.println(elements2.get(3).attr("href"));
     }
 
-    //进化:神宠时代,全球降临
-    public static void story83() throws IOException {
-        String url = "https://www.douyinxs.com/bqg/1055574/257580738.html";
-        Document document = Jsoup.connect(url).get();
-//        System.out.println(document.html());
-
-        System.out.println(document.select("div.bookname > h1").first().text());
-
-        Elements elements = document.select("article#content > p");
-        String content = elements.text();
-//        System.out.println(content);
-        for (String str : content.split(" ")) {
-            if (str.length() > 100) {
-                StringBuilder sb = new StringBuilder(str);
-                System.out.println(sb.insert(50, "\n").insert(100, "\n"));
-            } else if (str.length() > 50) {
-                StringBuilder sb = new StringBuilder(str);
-                System.out.println(sb.insert(50, "\n"));
-            } else if (str.length() > 0) {
-                System.out.println(str);
-            }
-            System.out.println();
-        }
-        Elements elements2 = document.select("div.bottem1 > a");
-        System.out.println(elements2.get(2).attr("href"));
-    }
-
     //灰雾之上：诡秘王座
-    public static void story84() throws IOException {
+    public static void story86() throws IOException {
         String url = "https://www.88xiaoshuo.net/Partlist/94006/151548223.shtml";
         Document document = Jsoup.connect(url).get();
 //        System.out.println(document.html());
@@ -95,35 +194,8 @@ public class TestStory {
         System.out.println(elements2.get(3).attr("href"));
     }
 
-    //神明降世,看见血条的我杀疯了
-    public static void story85() throws IOException {
-        String url = "https://www.xs7.com/shu/83502/147879126.html";
-        Document document = Jsoup.connect(url).get();
-//        System.out.println(document.html());
-
-        System.out.println(document.select("div.zhangjieming > h1").first().text());
-
-        Elements elements = document.select("div#content > p");
-        String content = elements.text();
-//        System.out.println(content);
-        for (String str : content.split(" ")) {
-            if (str.length() > 100) {
-                StringBuilder sb = new StringBuilder(str);
-                System.out.println(sb.insert(50, "\n").insert(100, "\n"));
-            } else if (str.length() > 50) {
-                StringBuilder sb = new StringBuilder(str);
-                System.out.println(sb.insert(50, "\n"));
-            } else if (str.length() > 0) {
-                System.out.println(str);
-            }
-            System.out.println();
-        }
-        Elements elements2 = document.select("div.bottem1 > a");
-        System.out.println(elements2.get(3).attr("href"));
-    }
-
     //末世:校花变丧尸,竟向我表白 我能打十个
-    public static void story86() throws IOException {
+    public static void story87() throws IOException {
         String url = "https://www.bqwxg8.com/wenzhang/11522/11522127/7663869.html";
         Document document = Jsoup.connect(url).get();
 //        System.out.println(document.html());
@@ -150,7 +222,7 @@ public class TestStory {
     }
 
     //死亡十万次,我直接买通时空长河
-    public static void story87() throws IOException {
+    public static void story88() throws IOException {
         String url = "https://www.88xiaoshuo.net/Partlist/270031/169043813.shtml";
         Document document = Jsoup.connect(url).get();
 //        System.out.println(document.html());
@@ -178,7 +250,7 @@ public class TestStory {
 
     //末日诡异游戏:我成为了六道鬼神
     //末日诡异网游:我开局征服鬼女皇
-    public static void story88() throws IOException {
+    public static void story89() throws IOException {
         String url = "https://www.xdu7.la/html/218975/189012926.html";
         Document document = Jsoup.connect(url).get();
 //        System.out.println(document.html());
@@ -205,7 +277,7 @@ public class TestStory {
     }
 
     //末日降临:百倍爆率刀刀爆物资
-    public static void story89() throws IOException {
+    public static void story90() throws IOException {
         String url = "http://www.26ks.org/book/64580/65075666.html";
         Document document = Jsoup.connect(url).get();
 //        System.out.println(document.html());
@@ -232,7 +304,7 @@ public class TestStory {
     }
 
     //凡人修仙，从当个小药奴开始
-    public static void story90() throws IOException {
+    public static void story91() throws IOException {
         String url = "http://www.yihanzw.com/yh/C1ENBlNe/1683314428.html";
         Document document = Jsoup.connect(url).get();
 //        System.out.println(document.html());
@@ -259,7 +331,7 @@ public class TestStory {
     }
 
     //网游之我有百倍奖励
-    public static void story91() throws IOException {
+    public static void story92() throws IOException {
         String url = "http://www.zhaoxiaoshuo.cc/wangyouzhiwoyoubaibeijiangli/24974056";
         Document document = Jsoup.connect(url).get();
 //        System.out.println(document.html());
@@ -285,7 +357,7 @@ public class TestStory {
     }
 
     //网游之命轮之主
-    public static void story92() throws IOException {
+    public static void story93() throws IOException {
 //        String url = "https://www.chuanyue1.com/cy/39683/76460981.html";
         String url = "https://www.23hh.com/book/58489/58489664/93666299.html";
         Document document = Jsoup.connect(url).get();
@@ -309,32 +381,6 @@ public class TestStory {
         }
         Elements elements2 = document.select("div.page_chapter > ul >li > a");
         System.out.println(elements2.get(2).attr("href"));
-    }
-
-    //网游：开局获得神级天赋
-    public static void story93() throws IOException {
-        String url = "https://www.kujiang.com/book/67371/147920940";
-        Document document = Jsoup.connect(url).get();
-//        System.out.println(document.html());
-
-        System.out.println(document.select("div.chapter_header > h1").first().text());
-
-        Elements elements = document.select("div.content > p");
-        for (Element element : elements) {
-            String str = element.text();
-            if (str.length() > 100) {
-                StringBuilder sb = new StringBuilder(str);
-                System.out.println(sb.insert(50, "\n").insert(100, "\n"));
-            } else if (str.length() > 50) {
-                StringBuilder sb = new StringBuilder(str);
-                System.out.println(sb.insert(50, "\n"));
-            } else {
-                System.out.println(str);
-            }
-            System.out.println();
-        }
-        Elements elements2 = document.select("li.page_next > a");
-        System.out.println(elements2.get(0).attr("href"));
     }
 
     //曾经，我想做个好人

@@ -1,7 +1,11 @@
 package com.wubin.test.client.http;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.http.HttpRequest;
+import cn.hutool.http.HttpUtil;
+import org.springframework.util.Base64Utils;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,6 +55,33 @@ public class TestHuTool {
                 .execute()
                 .body();
         System.out.println(result);
+    }
+
+    public static void upload() {
+        //http://medical-record.zpsoftware.cn/api/file/upload
+        String result = HttpRequest.post("http://localhost:8075/file/upload")
+                .form("file", new File("D:\\project\\medical-record\\file\\6074381_20250512162852.jpg"))
+                .execute()
+                .body();
+        System.out.println(result);
+    }
+
+    public static void uploadBase() {
+        //http://medical-record.zpsoftware.cn/api/file/upload/base64
+        String result = HttpRequest.post("http://localhost:8075/file/upload/base64")
+                .header("content-type", "multipart/form-data")
+                .form("filename", "80712_20250529173454.jpg")
+                .form("file", Base64Utils.encodeToString(FileUtil.readBytes(new File("D:\\work\\medical-record\\80712_20250529173454.jpg"))))
+                .execute()
+                .body();
+        System.out.println(result);
+    }
+
+    public static void download() {
+        HttpUtil.downloadFile(
+                "http://medical-record.zpsoftware.cn/api/files/20250519/0e16ddace5d64dec9d253d3a0c408d35.jpg",
+                "D:/test/000/000.jpg"
+        );
     }
 
     public static void main(String[] args) {

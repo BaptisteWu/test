@@ -19,21 +19,23 @@ import java.util.List;
 public class TestOcr {
 
     public static void main(String[] args) throws IOException {
-        System.out.println(new Date());
         InferenceEngine engine = InferenceEngine.getInstance(Model.ONNX_PPOCR_V4);
-
 //        ParamConfig paramConfig = ParamConfig.getDefaultConfig();
 //        paramConfig.setDoAngle(true);
 //        paramConfig.setMostAngle(true);
-        System.out.println(new Date());
-        OcrResult ocrResult = engine.runOcr("D:\\test\\888.jpg");
-        System.out.println(new Date());
-        List<TextBlock> list = ocrResult.getTextBlocks();
-        for (TextBlock textBlock : list) {
-            System.out.println(textBlock.toString());
-        }
+
+        String fileName = "D:\\test\\2222.jpg";
+        long start = new Date().getTime();
+        OcrResult ocrResult = engine.runOcr(fileName);
+        long end = new Date().getTime();
+        System.out.println(end - start);
+
+//        List<TextBlock> list = ocrResult.getTextBlocks();
+//        for (TextBlock textBlock : list) {
+//            System.out.println(textBlock.toString());
+//        }
         System.out.println(ocrResult.getStrRes().trim());
-//        outputPic(ocrResult, "D:\\test\\222.jpg", "D:\\test\\999.jpg");
+//        outputPic(ocrResult, fileName, "D:\\test\\999.jpg");
     }
 
     public static void outputPic(OcrResult ocrResult, String path1, String path2) throws IOException {

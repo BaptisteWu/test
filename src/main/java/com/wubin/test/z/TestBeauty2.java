@@ -20,7 +20,8 @@ public class TestBeauty2 {
     //https://1SSS.XYZ
     //https://1SSS.ORG
     //1ssstv18@gmail.com
-    private static final String BASE_URL = "https://www.gg5522.com";
+    //https://www.gg5522.com
+    private static final String BASE_URL = "https://www.tt9922.com";
 
     public static void main(String[] args) throws IOException {
         read();
@@ -31,7 +32,7 @@ public class TestBeauty2 {
         List<String> list = FileUtils.readLines(new File("D:\\test\\m3u8\\test2.txt"), "UTF-8");
         for (String str : list) {
             String[] arr = str.split("@");
-            if (arr[0].toUpperCase().contains("FSDSS")) {
+            if (arr[0].toUpperCase().contains("MEYD")) {
                 System.out.println(arr[0] + ":" + arr[1]);
                 System.out.println(arr[2]
 //                        .replace("hweu3.sjzsq.com", "eu3.xm141.com")

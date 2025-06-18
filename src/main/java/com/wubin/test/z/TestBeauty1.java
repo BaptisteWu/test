@@ -22,21 +22,25 @@ import java.util.regex.Pattern;
 public class TestBeauty1 {
 
     //tai9tai99@gmail.com
-    //https://t91651.xyz:9388
-    //https://t91536.xyz:9388
-    //https://c53c.t91zm.com:7265
-    private static final String BASE_URL = "https://5e34.t916fh.pro:8976";
+    //https://0e3f.t911zd.pro:8976
+    //https://959b.t91m9q.pro:8976
+    //https://985b.t91i8t.pro:8976
+    //https://31a3.t918v3.pro:8976
+    //https://95e7.t915m4.pro:8565
+    //https://713e.t91u7h.pro:8565
+    private static final String BASE_URL = "https://53ed.nx0101m.pro:8565";
 
     public static void main(String[] args) throws IOException {
-//        search2_1();
-        search2_2();
-//        search();
-//        get("/videoplay/?vid=34275");
+        list1();
+//        list2();
+
+//        listOld();
+//        infoOld("/videoplay/?vid=34275");
     }
 
-    public static void search2_1() {
+    public static void list1() {
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("keyword", "一乃");//白木
+        paramMap.put("keyword", "糖心 娜娜");
         paramMap.put("limit", 20);
         paramMap.put("page", 1);
         String result = HttpUtil.post(BASE_URL + "/v2/home/search", paramMap);
@@ -46,32 +50,44 @@ public class TestBeauty1 {
         for (JSONObject data : jsonArray.jsonIter()) {
             System.out.println(data.getStr("title") + ":" + data.getInt("id"));
             System.out.println(data.getStr("sl"));
+            info(data.getInt("id"));
             System.out.println();
         }
     }
 
-    //https://c3.zkxufaz.com
-    public static void search2_2() {
+    public static void list2() {
         //日韩4 女优专区135
         //相泽南164 河北彩花167 明里紬176 枫富爱172 伊藤舞雪168 岬奈奈美174 天海翼163
+        //篠田優175
         String body = "{" +
                 "\"category_child_id\":\"\"," +
-                "\"category_id\":\"135\"," +
+                "\"category_id\":\"4\"," +
                 "\"limit\":20," +
-                "\"page\":1" +
+                "\"page\":6" +
                 "}";
         String result = HttpRequest.put(BASE_URL + "/v2/category").body(body).execute().body();
 
         JSONObject jsonObject = JSONUtil.parseObj(result);
         JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("data");
         for (JSONObject data : jsonArray.jsonIter()) {
-            System.out.println(data.getStr("title") + ":" + data.getInt("id"));
             System.out.println(data.getStr("sl"));
+            System.out.println(data.getStr("title") + ":" + data.getInt("id"));
             System.out.println();
         }
     }
 
-    public static void search() throws IOException {
+    public static void info(Integer vid) {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("vid", vid);
+        String result = HttpUtil.post(BASE_URL + "/v2/videoplay", paramMap);
+
+        JSONObject jsonObject = JSONUtil.parseObj(result);
+        JSONObject video = jsonObject.getJSONObject("video");
+        System.out.println(video.getStr("self_cdn_path"));
+        System.out.println(video.getStr("sl"));
+    }
+
+    public static void listOld() throws IOException {
 //        String url = BASE_URL + "/category/?category_id=176";
         String url = BASE_URL + "/index/search/?keyword=枫富爱";
 //        String url = BASE_URL + "/index/search/?keyword=枫富爱&page=2&limit=30";
@@ -81,11 +97,11 @@ public class TestBeauty1 {
         for (Element element : elements) {
             System.out.println(element.html());
             System.out.println(BASE_URL + element.parent().attr("href"));
-//            get(element.parent().attr("href"));
+//            infoOld(element.parent().attr("href"));
         }
     }
 
-    public static void get(String str) throws IOException {
+    public static void infoOld(String str) throws IOException {
         String url = BASE_URL + str;
         Document document = Jsoup.connect(url).get();
 //        System.out.println(document.body().html());

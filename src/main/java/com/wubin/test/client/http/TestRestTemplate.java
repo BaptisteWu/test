@@ -1,21 +1,31 @@
 package com.wubin.test.client.http;
 
+import cn.hutool.core.io.FileUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.http.*;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.util.Base64Utils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 public class TestRestTemplate {
 
     private static final String BASE_URL = "http://localhost:8081/test";
+
+    public static RestTemplate getRestTemplate() {
+        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+        factory.setConnectTimeout(1000);
+        factory.setReadTimeout(1000);
+        return new RestTemplate(factory);
+    }
 
     public static void select1() {
         Map<String, String> map = new HashMap<>();
@@ -101,11 +111,13 @@ public class TestRestTemplate {
         System.out.println(jsonObject);
     }
 
-    public static RestTemplate getRestTemplate() {
-        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-        factory.setConnectTimeout(1000);
-        factory.setReadTimeout(1000);
-        return new RestTemplate(factory);
+    public static void uploadBase() {
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("filename", "111.jpg");
+        map.add("file", Base64Utils.encodeToString(FileUtil.readBytes(new File("D:\\work\\medical-record\\80712_20250529173454.jpg"))));
+        RestTemplate restTemplate = getRestTemplate();
+        JSONObject jsonObject = restTemplate.postForObject("http://localhost:8075/file/upload/base64", map, JSONObject.class);
+        System.out.println(jsonObject);
     }
 
     public static void main(String[] args) {

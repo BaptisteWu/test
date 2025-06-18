@@ -1,5 +1,6 @@
 package com.wubin.test.io;
 
+import cn.hutool.core.io.FileUtil;
 import com.wubin.test.model.User;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -22,6 +23,96 @@ public class TestFile {
 //        File dir = new File("test1");
 //        File dir = new File("./test1");
 //        System.out.println(Arrays.toString("你好！".getBytes()));
+    }
+
+    public static void exists() {
+        String fileName = "D:/test/test1/test2/test3/test4/test5";
+
+        // io
+        File dir = new File(fileName);
+        System.out.println(dir.exists());
+
+        // nio
+        System.out.println(Files.exists(Paths.get(fileName)));
+
+        // hutool
+        FileUtil.exist(fileName);
+    }
+
+    public static void createDir() throws IOException {
+        String fileName = "D:/test/test1/test2/test3/test4/test5";
+
+        File dir = new File(fileName);
+        // io 会创建父文件夹
+        dir.mkdirs();
+        // io 不会创建父文件夹，不报错，返回false
+        dir.mkdir();
+
+        // nio 不会创建父文件夹，报错
+        Files.createDirectory(Paths.get(fileName));
+        // nio 会创建父文件夹
+        Files.createDirectories(Paths.get(fileName));
+
+        // apache 会创建父文件夹
+        FileUtils.forceMkdir(new File(fileName));
+
+        // hutool 会创建父文件夹
+        FileUtil.mkdir(fileName);
+    }
+
+    public static void rename() throws IOException {
+        String fileName1 = "D:\\test\\en.jpg";
+        String fileName2 = "D:\\test\\test\\test.jpg";
+
+        // io 不会创建父文件夹，不报错，返回false
+        File file = new File(fileName1);
+        file.renameTo(new File(fileName2));
+
+        // nio 不会创建父文件夹，报错
+        Files.move(Paths.get(fileName1), Paths.get(fileName2));
+
+        // apache 会创建父文件夹
+        FileUtils.moveFile(new File(fileName1), new File(fileName2));
+
+        // hutool 会创建父文件夹
+        FileUtil.rename(new File(fileName1), fileName2, true);
+    }
+
+    public static void writeByte() throws IOException {
+        String str = "D:/test/111.jpg";
+        byte[] bytes = Files.readAllBytes(Paths.get(str));
+
+        String fileName = "D:/test/test/test/111.jpg";
+
+        // nio 不会创建父文件夹，报错
+        Files.write(Paths.get(fileName), bytes);
+
+        // apache 会创建父文件夹
+        FileUtils.writeByteArrayToFile(new File(fileName), bytes);
+        // apache 不会创建父文件夹，报错
+        FileOutputStream fos = new FileOutputStream(fileName);
+        IOUtils.write(bytes, fos);
+        IOUtils.close(fos);
+
+        // hutool 会创建父文件夹
+        FileUtil.writeBytes(bytes, fileName);
+    }
+
+    public static void readByte() throws IOException {
+        String fileName = "D:/test/111.jpg";
+
+        // nio
+        Files.readAllBytes(Paths.get(fileName));
+
+        // apache
+        FileUtils.readFileToByteArray(new File(fileName));
+
+        FileInputStream fis = new FileInputStream(fileName);
+        IOUtils.toByteArray(fis);
+        IOUtils.close(fis);
+
+        // hutool
+        FileUtil.readBytes(fileName);
     }
 
     public static void copy() throws IOException {
@@ -52,38 +143,6 @@ public class TestFile {
 
         // spring
         FileCopyUtils.copy(new File(source), new File(dest));
-    }
-
-    public static void exists() {
-        String fileName = "D:/test/test1/test2/test3/test4/test5";
-
-        // io
-        File dir = new File(fileName);
-        System.out.println(dir.exists());
-
-        // nio
-        System.out.println(Files.exists(Paths.get(fileName)));
-    }
-
-    public static void createDir() throws IOException {
-        String fileName = "D:/test/test1/test2/test3/test4/test5";
-
-        // io
-        File dir = new File(fileName);
-        // 会创建父文件夹
-        dir.mkdirs();
-        // 不会创建父文件夹，不会报错，返回false
-        dir.mkdir();
-
-        // nio
-        // 不会创建父文件夹
-        Files.createDirectory(Paths.get(fileName));
-        // 会创建父文件夹
-        Files.createDirectories(Paths.get(fileName));
-
-        // apache
-        // 会创建父文件夹
-        FileUtils.forceMkdir(new File(fileName));
     }
 
     public static void createFile() throws IOException {
@@ -332,7 +391,7 @@ public class TestFile {
 
     public static void fileToObject() throws IOException, ClassNotFoundException {
         try (FileInputStream fis = new FileInputStream("D:/test/test.o");
-             ObjectInputStream ois = new ObjectInputStream(fis);) {
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
             User user = (User) ois.readObject();
             System.out.println(user);
         }

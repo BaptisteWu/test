@@ -2,6 +2,7 @@ package com.wubin.test.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.wubin.test.model.User;
 
@@ -65,7 +66,13 @@ public class TestGson {
 //        strToObj();
 
 //        listToStr();
-        strToList();
+//        strToList();
+
+        JsonObject param = new JsonObject();
+        param.addProperty("id", 1);
+        param.addProperty("name", "张三");
+        param.addProperty("birth", "2020-01-09 14:48:41");
+        System.out.println(param.toString());
     }
 
 }

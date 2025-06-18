@@ -20,23 +20,114 @@ import java.util.*;
 
 public class TestBeauty3 {
 
+    //chrome://version
+    //https://googlechromelabs.github.io/chrome-for-testing/
+    //https://storage.googleapis.com/chrome-for-testing-public/133.0.6943.99/win64/chromedriver-win64.zip
+
+    public static void test0() {
+        System.setProperty("webdriver.chrome.driver", "D:\\tools\\chromedriver-win64\\chromedriver.exe");
+        ChromeOptions options = new ChromeOptions();
+        ChromeDriver driver = new ChromeDriver(options);
+        driver.get("https://www.baidu.com/");
+    }
+
+    //https://kwa.kbuu78.cc/lf.html?dlx=1&lx=1
+    //https://kwb.kwuu19.icu/lf.html?dlx=1&lx=2
+    //https://hsa1.yeyepa4.sbs/lf.html?dlx=1&lx=2&gg=1
     private static final String BASE_URL = "https://tt.sfm1.icu";
 
+    //www.ludouciba.icu
     //https://tt.sfm1.icu/index.php/vod/search.html?wd=ipx
     //https://tt.sfm1.icu/index.php/vod/search/page/1/wd/IPX-344.html
     //https://tt.sfm1.icu/vodhtml/315201.html
     //https://tt.sfm1.icu/play/315201_1_1.html
     //https://player.huangguam3u.com/20230630/9ReLBl5W/index.m3u8
     public static void main(String[] args) throws Exception {
+        test0();
+
 //        read();
 //        test();
 //        list();
 //        info("/play/317022_1_1.html");
 
-        read2();
+        //108,082
+//        read2();
 //        test2();
 //        list2();
-//        info2(Arrays.asList("274472"));
+//        info2(Arrays.asList("192015"));
+    }
+
+    public static void read2() throws Exception {
+        List<String> data = FileUtils.readLines(new File("D:\\test\\m3u8\\test3_3.txt"), "UTF-8");
+        List<String> list = new ArrayList<>();
+        for (String str : data) {
+            String[] arr = str.split("@");
+            if (arr[1].toUpperCase().contains("VEMA")) {//IPX-482 IPX-491
+                System.out.println(str);
+                list.add(arr[0]);
+            }
+        }
+        System.out.println(list.size());
+        if (list.size() > 0) {
+            info2(list);
+        }
+    }
+
+    private static final String API_URL = "https://x99.womeinaozi.icu";
+//    private static final String API_URL = "https://houduan.ggm5.icu";
+
+    public static void test2() throws Exception {
+        String url = API_URL + "//api.php/mei/getShiPinHuangList?currentPage=1&tid=&ztid=&wd=VEMA-184";
+        System.setProperty("webdriver.chrome.driver", "D:\\tools\\chromedriver-win64\\chromedriver.exe");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        ChromeDriver driver = new ChromeDriver(options);
+        driver.get(url);
+        String data = driver.findElementByTagName("pre").getText();
+        driver.quit();
+        String result = decrypt(data.replace("\"", "").replace("\\", ""));
+        JSONObject jsonObject = JSONUtil.parseObj(result);
+        System.out.println(jsonObject.toStringPretty());
+        JSONArray jsonArray = jsonObject.getJSONArray("list");
+        for (JSONObject object : jsonArray.jsonIter()) {
+            System.out.println(object.getInt("vod_id") + "@" + object.getStr("vod_blurb"));
+        }
+    }
+
+    public static void list2() throws Exception {
+        System.setProperty("webdriver.chrome.driver", "D:\\tools\\chromedriver-win64\\chromedriver.exe");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        ChromeDriver driver = new ChromeDriver(options);
+        for (int i = 1; i <= 7; ++i) {
+            String url = API_URL + "//api.php/mei/getShiPinHuangList?currentPage=" + i + "&tid=&ztid=&wd=mtall";
+            driver.get(url);
+            String data = driver.findElementByTagName("pre").getText();
+            String result = decrypt(data.replace("\"", "").replace("\\", ""));
+            JSONObject jsonObject = JSONUtil.parseObj(result);
+            JSONArray jsonArray = jsonObject.getJSONArray("list");
+            for (JSONObject object : jsonArray.jsonIter()) {
+                System.out.println(object.getInt("vod_id") + "@" + object.getStr("vod_blurb"));
+            }
+        }
+        driver.quit();
+    }
+
+    public static void info2(List<String> list) throws Exception {
+        System.setProperty("webdriver.chrome.driver", "D:\\tools\\chromedriver-win64\\chromedriver.exe");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        ChromeDriver driver = new ChromeDriver(options);
+        for (String str : list) {
+            String url = API_URL + "//api.php/mei/getDetail?id=" + str;
+            driver.get(url);
+            String data = driver.findElementByTagName("pre").getText();
+            String result = decrypt(data.replace("\"", "").replace("\\", ""));
+            JSONObject jsonObject = JSONUtil.parseObj(result);
+            System.out.println(jsonObject.getJSONObject("detail").getStr("vod_name"));
+            System.out.println(jsonObject.getJSONObject("detail").getStr("vod_play_url"));
+        }
+        driver.quit();
     }
 
     public static void read() throws IOException {
@@ -95,76 +186,6 @@ public class TestBeauty3 {
 //                FileUtils.write(new File("D:\\test\\m3u8\\download.txt"), path + "\n", "UTF-8", true);
             }
         }
-    }
-
-    public static void read2() throws Exception {
-        List<String> data = FileUtils.readLines(new File("D:\\test\\m3u8\\test3_2.txt"), "UTF-8");
-        List<String> list = new ArrayList<>();
-        for (String str : data) {
-            String[] arr = str.split("@");
-            if (arr[1].toUpperCase().contains("ATID")) {
-                System.out.println(str);
-                list.add(arr[0]);
-            }
-        }
-//        if (list.size() > 0) {
-//            info2(list);
-//        }
-    }
-
-    public static void test2() throws Exception {
-//        String url = "https://houduan.ggm5.icu//api.php/mei/getShiPinHuangList?currentPage=1&tid=26&ztid=&wd=";
-        String url = "https://houduan.ggm5.icu//api.php/mei/getShiPinHuangList?currentPage=1&tid=&ztid=&wd=ipx";
-        System.setProperty("webdriver.chrome.driver", "D:\\tools\\chromedriver-win64\\chromedriver.exe");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        ChromeDriver driver = new ChromeDriver(options);
-        driver.get(url);
-        String data = driver.findElementByTagName("pre").getText();
-        driver.quit();
-        String result = decrypt(data.replace("\"", "").replace("\\", ""));
-        JSONObject jsonObject = JSONUtil.parseObj(result);
-        System.out.println(jsonObject.toStringPretty());
-        JSONArray jsonArray = jsonObject.getJSONArray("list");
-        for (JSONObject object : jsonArray.jsonIter()) {
-            System.out.println(object.getInt("vod_id") + "@" + object.getStr("vod_blurb"));
-        }
-    }
-
-    public static void list2() throws Exception {
-        System.setProperty("webdriver.chrome.driver", "D:\\tools\\chromedriver-win64\\chromedriver.exe");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        ChromeDriver driver = new ChromeDriver(options);
-        for (int i = 1; i <= 11; ++i) {
-            String url = "https://houduan.ggm5.icu//api.php/mei/getShiPinHuangList?currentPage=" + i + "&tid=&ztid=&wd=ipx";
-            driver.get(url);
-            String data = driver.findElementByTagName("pre").getText();
-            String result = decrypt(data.replace("\"", "").replace("\\", ""));
-            JSONObject jsonObject = JSONUtil.parseObj(result);
-            JSONArray jsonArray = jsonObject.getJSONArray("list");
-            for (JSONObject object : jsonArray.jsonIter()) {
-                System.out.println(object.getInt("vod_id") + "@" + object.getStr("vod_blurb"));
-            }
-        }
-        driver.quit();
-    }
-
-    public static void info2(List<String> list) throws Exception {
-        System.setProperty("webdriver.chrome.driver", "D:\\tools\\chromedriver-win64\\chromedriver.exe");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless");
-        ChromeDriver driver = new ChromeDriver(options);
-        for (String str : list) {
-            String url = "https://houduan.ggm5.icu//api.php/mei/getDetail?id=" + str;
-            driver.get(url);
-            String data = driver.findElementByTagName("pre").getText();
-            String result = decrypt(data.replace("\"", "").replace("\\", ""));
-            JSONObject jsonObject = JSONUtil.parseObj(result);
-            System.out.println(jsonObject.getJSONObject("detail").getStr("vod_name"));
-            System.out.println(jsonObject.getJSONObject("detail").getStr("vod_play_url"));
-        }
-        driver.quit();
     }
 
     private static final SecretKeySpec KEY = new SecretKeySpec("f31b9d2297af6f83".getBytes(), "AES");

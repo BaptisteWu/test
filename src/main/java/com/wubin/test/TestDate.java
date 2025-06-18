@@ -29,21 +29,25 @@ public class TestDate {
 //            System.out.println(ExceptionUtil.stacktraceToString(e));
 //        }
 
-//        System.out.println(DateUtil.today());
+//        System.out.println(DateUtil.format(new Date(), "yyyyMMddHHmmssSSS"));
 //        System.out.println(DateUtil.parse("2024-04-04"));
 //        System.out.println(DateUtil.parse("2024-04-04 08:00:00"));
+//        System.out.println(DateUtil.beginOfDay(new Date()));
+//        System.out.println(DateUtil.parseTimeToday("08:00:00"));
+//        System.out.println(DateUtil.today());
 //        System.out.println(DateUtil.hour(DateUtil.parse("2023-01-31 14:00:00"), true));
 //        System.out.println(DateUtil.thisHour(true));
 
-//        Date date1 = DateUtil.parse("2024-03-29 08:00:02");
-//        Date date2 = DateUtil.parse("2024-03-29 08:01:01");
-//        System.out.println(DateUtil.between(date1, date2, DateUnit.MINUTE));
+        Date date1 = DateUtil.parse("2024-03-28 08:01:01");
+        Date date2 = DateUtil.parse("2024-03-29 08:01:01");
+        System.out.println(DateUtil.between(date1, date2, DateUnit.DAY));
 
 //        Date date1 = DateUtil.parse("2024-03-29 00:00:00");
 //        Date date2 = DateUtil.parse("2024-04-29 00:00:00");
 //        List<DateTime> rangeToList = DateUtil.rangeToList(date1, date2, DateField.DAY_OF_YEAR);
 //        for (DateTime dateTime : rangeToList) {
-//            System.out.println(dateTime);
+//            System.out.println(dateTime.toDateStr());
+//            System.out.println(dateTime.toString("MM-dd"));
 //        }
 
 //        Date date1 = DateUtil.parse("2023-01-31 00:00:00");
@@ -52,26 +56,6 @@ public class TestDate {
 //        for (DateTime dateTime : rangeToList) {
 //            System.out.println(dateTime);
 //        }
-
-//        Date estimateTime = DateUtil.parse("2022-11-14 08:00:00");
-//        Date endTime = DateUtil.parse("2022-11-14 09:16:16");
-//        Date estimateTime1 = DateUtil.offset(DateUtil.beginOfDay(estimateTime), DateField.HOUR, 8);
-//        Date estimateTime2 = DateUtil.offset(estimateTime1, DateField.DAY_OF_YEAR, -1);
-//        System.out.println(estimateTime2);
-//        Date endTime1 = DateUtil.offset(DateUtil.beginOfDay(endTime), DateField.HOUR, 8);
-//        Date endTime2 = DateUtil.offset(DateUtil.beginOfDay(endTime), DateField.HOUR, 12);
-//        double day = DateUtil.between(estimateTime1, endTime1, DateUnit.DAY);
-//        if (DateUtil.compare(estimateTime1, estimateTime) > 0) {
-//            day = day + 0.5;
-//        }
-//        if (DateUtil.compare(endTime1, endTime) <= 0) {
-//            if (DateUtil.compare(endTime2, endTime) > 0) {
-//                day = day + 0.5;
-//            } else {
-//                day = day + 1;
-//            }
-//        }
-//        System.out.println(day);
     }
 
 }

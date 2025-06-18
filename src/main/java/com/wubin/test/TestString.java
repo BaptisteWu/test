@@ -1,6 +1,7 @@
 package com.wubin.test;
 
 import cn.hutool.core.util.StrUtil;
+import com.github.houbb.sensitive.word.core.SensitiveWordHelper;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.UUID;
@@ -25,10 +26,11 @@ public class TestString {
 
     public static void main(String[] args) {
         // [0, 8)
-//        String str = "苏械注准20232020101";
-//        System.out.println(str.substring(0, 8));
-//        System.out.println(str.substring(8));
-//        System.out.println(StrUtil.sub(str, 0, 8));
+        String str = "苏械注准20232020101";
+        System.out.println(str.indexOf("9"));
+        System.out.println(str.substring(0, 8));
+        System.out.println(str.substring(8));
+        System.out.println(StrUtil.sub(str, 0, 8));
 
 //        System.out.println(StringUtils.defaultIfEmpty(null, ""));
 
@@ -45,6 +47,8 @@ public class TestString {
 //        System.out.println(StringUtils.center("a", 3, "*"));
 //        System.out.println(StringUtils.rightPad("a", 3, "*"));
 
+//        String str = "傻@冒，狗+东西";
+//        System.out.println(SensitiveWordHelper.replace(str));
     }
 
 }

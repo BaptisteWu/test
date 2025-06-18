@@ -11,9 +11,6 @@ import java.security.KeyPair;
 
 public class TestSM2 {
 
-//    private static final String PRIVATE_KEY = "MIGTAgEAMBMGByqGSM49AgEGCCqBHM9VAYItBHkwdwIBAQQgzYc3Pp6VNW1LWhgz1RifcMEf0hB4ph9xcKc+K93WpbqgCgYIKoEcz1UBgi2hRANCAASiWUe0vcVURixaRaBXM2FmUiFSGXiaUXOkuzYIwxON4Hc+kGU81Fh7pucpasF5KcF3+dFAa81SD4GBt2X5+lLg";
-//    private static final String PUBLIC_KEY = "MFkwEwYHKoZIzj0CAQYIKoEcz1UBgi0DQgAEollHtL3FVEYsWkWgVzNhZlIhUhl4mlFzpLs2CMMTjeB3PpBlPNRYe6bnKWrBeSnBd/nRQGvNUg+Bgbdl+fpS4A==";
-
     private static final String PRIVATE_KEY = "MIGTAgEAMBMGByqGSM49AgEGCCqBHM9VAYItBHkwdwIBAQQgPO2orDr8U6G6ct0VhYWEm4vnzW56IrJnBnlgnUUb0W2gCgYIKoEcz1UBgi2hRANCAASFaqf69+rTQqHgKzowu7t5rFTkPVH6xq7Azn6jV2wl4zkC9QWC3NI/XiStAqb/vlhwoIrGlYyW6Sccl4woQ9hQ";
     private static final String PUBLIC_KEY = "MFkwEwYHKoZIzj0CAQYIKoEcz1UBgi0DQgAEhWqn+vfq00Kh4Cs6MLu7eaxU5D1R+sauwM5+o1dsJeM5AvUFgtzSP14krQKm/75YcKCKxpWMluknHJeMKEPYUA==";
 
@@ -34,38 +31,38 @@ public class TestSM2 {
     }
 
     public static String encode1(String str) {
-        SM2 sm2 = SmUtil.sm2(PRIVATE_KEY, PUBLIC_KEY);
+        SM2 sm2 = SmUtil.sm2(null, PUBLIC_KEY);
         return sm2.encryptBase64(str, KeyType.PublicKey);
     }
 
     public static String encode2(String str) {
-        SM2 sm2 = SmUtil.sm2(PRIVATE_KEY, PUBLIC_KEY);
+        SM2 sm2 = SmUtil.sm2(null, PUBLIC_KEY);
         return sm2.encryptHex(str, KeyType.PublicKey);
     }
 
     public static String encode3(String str) {
-        SM2 sm2 = SmUtil.sm2(PRIVATE_KEY, PUBLIC_KEY);
+        SM2 sm2 = SmUtil.sm2(null, PUBLIC_KEY);
         return sm2.encryptBcd(str, KeyType.PublicKey);
     }
 
     public static String decode(String str) {
-        SM2 sm2 = SmUtil.sm2(PRIVATE_KEY, PUBLIC_KEY);
+        SM2 sm2 = SmUtil.sm2(PRIVATE_KEY, null);
         return sm2.decryptStr(str, KeyType.PrivateKey);
     }
 
     public static void main(String[] args) {
-        generateKey();
+//        generateKey();
 
         //公钥加密，私钥解密
 
 //        System.out.println(encode1("18717758202"));
-//        System.out.println(decode("BKKSPTNxLKIq48YH+LFbKg2kCopxso1+tLnd+BWuRmzHVaGYl6Pe7At7Bt4tGkTB/wTvMuXeq+AqdMpuP4Uf4iaGVHWk4av2ixDzer5oUxq1+etwUJNKMNmPTad/Pr9BCNGumNcwABplcfxg"));
+//        System.out.println(decode("BAqKCBgP9zmBFKX0PCF/RrGtNxLCWK3bVO8evR+THJ7ibwgfwYEJ2utJBWKWLpn1STABu/IyHpq1GnjLboxvrVocYcKgc1Izi+T5VK9KYZZn7EaT2u93xJ34uODKgGclWAHP4IYJnQFgvkRT"));
 
 //        System.out.println(encode2("18717758202"));
-//        System.out.println(decode("04903ac6e4e5a27be2cd1ad82f7d119c68021cbccc4d09a891f5df6a77acba21fb0089faea16b13e24ad6a8be083de6da719814dbf7db94339b4cc0c11fff01da555c3e31b52cfb5dea0cd1e8605821bb3e54c87bbdc8a6d53ebc27760db2e171f726255e8fda275af64b36b"));
+//        System.out.println(decode("04e6ca58e8259aa5250dddaa0e78b0db8de913c7685f831c8b2a391e3f2344d4ff9c6dd6e5877cf84d8859b9037a53224ca6dcbf16c7b321aa048d8f75f5ef1fc36f432901a11d24e06551515e5c8daa073a1b5598a9a74f137d45295bd8fc76ba712e9394c47e1a848ab556"));
 
 //        System.out.println(encode3("18717758202"));
-//        System.out.println(decode("0468DF74C48A580B347E4807D159C852CC9AF549E911725DCD979D08A50EA639C72B8E852F0C83871F4A299DAC888AFD1405440A07512FD241C06627974491E3BF5429A6CE9054867F2F69112CC4625DD701C93D284CB7C2CCC0FDBC13DED8AD9617374062EBFB0A3D234820"));
+//        System.out.println(decode("04CB53DD8F7BC4052DF3332B2EE6A88FBC264B6D94A2CDD768594AA27752325D6D9D07226678FED0B41FD2F69E71D01D6A7A0712B788708DA6CA88A80522AF74A93897CF6CEAF8B075FFE726E8AD357757804DF18248C6DD501463FD296A90BD969D532423FDD6A071359FB8"));
 
     }
 
