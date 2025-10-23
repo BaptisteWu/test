@@ -62,17 +62,17 @@ public class TestGson {
     }
 
     public static void main(String[] args) {
-//        objToStr();
+        objToStr();
 //        strToObj();
 
 //        listToStr();
 //        strToList();
 
-        JsonObject param = new JsonObject();
-        param.addProperty("id", 1);
-        param.addProperty("name", "张三");
-        param.addProperty("birth", "2020-01-09 14:48:41");
-        System.out.println(param.toString());
+//        JsonObject param = new JsonObject();
+//        param.addProperty("id", 1);
+//        param.addProperty("name", "张三");
+//        param.addProperty("birth", "2020-01-09 14:48:41");
+//        System.out.println(param.toString());
     }
 
 }

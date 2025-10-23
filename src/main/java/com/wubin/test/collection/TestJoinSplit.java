@@ -5,6 +5,7 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -13,12 +14,16 @@ import java.util.stream.Collectors;
 public class TestJoinSplit {
 
     public static void join() {
-        List<String> list = Lists.newArrayList("a", null, "b", "c");
+        List<String> list = new ArrayList<>();
+//        List<String> list = Lists.newArrayList("a", null, "b", "c");
 
+        System.out.println("---");
         System.out.println(list.stream().collect(Collectors.joining(",", "[", "]")));
 
+        System.out.println("---");
         System.out.println(Joiner.on(",").skipNulls().join(list));
 
+        System.out.println("---");
         System.out.println(StringUtils.join(list, ","));
     }
 

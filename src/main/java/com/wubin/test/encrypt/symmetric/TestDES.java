@@ -1,69 +1,57 @@
 package com.wubin.test.encrypt.symmetric;
 
+import cn.hutool.core.codec.Base64;
+
 import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
-import java.security.Key;
-import java.util.Base64;
+import javax.crypto.spec.SecretKeySpec;
+import java.security.Security;
 
 public class TestDES {
 
-    private static final String KEY_ALGORITHM = "DES";
+    private static final String CIPHER_ALGORITHM = "DES/ECB/PKCS7Padding";
+    static {
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+    }
 
-    // DES/ECB/NoPadding
-    // DES/ECB/PKCS5Padding,DES/ECB/PKCS7Padding
-    // DES/ECB/ISO10126Padding
-    private static final String CIPHER_ALGORITHM = "DES/ECB/PKCS5Padding";
-//    private static final String CIPHER_ALGORITHM = "DES/CBC/PKCS5Padding";
+    //DES/ECB/NoPadding
+    //DES/ECB/PKCS5Padding
+    //DES/CBC/NoPadding
+    //AES/CBC/PKCS5Padding
+    //NoPadding javax.crypto.IllegalBlockSizeException: Input length not multiple of 8 bytes
 
-//    private static final String CIPHER_ALGORITHM = "DES/ECB/PKCS7Padding";
-//    static {
-//        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
-//    }
-
-    public static Key getKey(String key) throws Exception {
-        DESKeySpec desKeySpec = new DESKeySpec(key.getBytes());
-        SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance(KEY_ALGORITHM);
+    public static SecretKey getKey(byte[] key) throws Exception {
+        DESKeySpec desKeySpec = new DESKeySpec(key);
+        SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("DES");
         return secretKeyFactory.generateSecret(desKeySpec);
     }
 
-    public static String encode(String data, String key) throws Exception {
-        Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-        cipher.init(Cipher.ENCRYPT_MODE, getKey(key));
-        byte[] bytes = cipher.doFinal(data.getBytes());
-        return Base64.getEncoder().encodeToString(bytes);
+    //ECB mode cannot use IV
+    public static byte[] ecb(int mode, byte[] data, byte[] key) throws Exception {
+        Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
+        cipher.init(mode, new SecretKeySpec(key, "DES"));
+//        cipher.init(mode, getKey(key));
+        return cipher.doFinal(data);
     }
 
-    public static String decode(String data, String key) throws Exception {
-        Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-        cipher.init(Cipher.DECRYPT_MODE, getKey(key));
-        byte[] bytes = cipher.doFinal(Base64.getDecoder().decode(data));
-        return new String(bytes);
-    }
-
-    public static String encodeWithIV(String data, String key, String iv) throws Exception {
-        Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-        cipher.init(Cipher.ENCRYPT_MODE, getKey(key), new IvParameterSpec(iv.getBytes()));
-        byte[] bytes = cipher.doFinal(data.getBytes());
-        return Base64.getEncoder().encodeToString(bytes);
-    }
-
-    public static String decodeWithIV(String data, String key, String iv) throws Exception {
-        Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-        cipher.init(Cipher.DECRYPT_MODE, getKey(key), new IvParameterSpec(iv.getBytes()));
-        byte[] bytes = cipher.doFinal(Base64.getDecoder().decode(data));
-        return new String(bytes);
+    public static byte[] cbc(int mode, byte[] data, byte[] key, byte[] iv) throws Exception {
+        Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
+        cipher.init(mode, new SecretKeySpec(key, "DES"), new IvParameterSpec(iv));
+//        cipher.init(mode, getKey(key), new IvParameterSpec(iv));
+        return cipher.doFinal(data);
     }
 
     public static void main(String[] args) throws Exception {
-        System.out.println(encode("测试test", "12345678"));
-        System.out.println(decode("li8QlZlgiOugwXLjYYorKA==", "12345678"));
+        //Wrong key size
+        System.out.println(Base64.encode(ecb(Cipher.ENCRYPT_MODE, "你好".getBytes(), "12345678".getBytes())));
+        System.out.println(new String(ecb(Cipher.DECRYPT_MODE, Base64.decode("QO2klVpoYT8="), "12345678".getBytes())));
 
-        //ECB mode cannot use IV
         //Wrong IV length: must be 8 bytes long
-//        System.out.println(encodeWithIV("测试test", "12345678", "12345678"));
-//        System.out.println(decodeWithIV("Tiqxct9ArohXBo/6PyCBxw==", "12345678", "12345678"));
+//        System.out.println(Base64.encode(cbc(Cipher.ENCRYPT_MODE, "你好".getBytes(), "12345678".getBytes(), "12345678".getBytes())));
+//        System.out.println(new String(cbc(Cipher.DECRYPT_MODE, Base64.decode("8nuUCN9O6kQ="), "12345678".getBytes(), "12345678".getBytes())));
     }
 
 }

@@ -22,13 +22,12 @@ import java.util.regex.Pattern;
 public class TestBeauty1 {
 
     //tai9tai99@gmail.com
-    //https://0e3f.t911zd.pro:8976
     //https://959b.t91m9q.pro:8976
     //https://985b.t91i8t.pro:8976
-    //https://31a3.t918v3.pro:8976
     //https://95e7.t915m4.pro:8565
     //https://713e.t91u7h.pro:8565
-    private static final String BASE_URL = "https://53ed.nx0101m.pro:8565";
+    //https://53ed.nx0101m.pro:8565
+    private static final String BASE_URL = "https://c207.kwlynx01.pro:8366";
 
     public static void main(String[] args) throws IOException {
         list1();
@@ -40,7 +39,7 @@ public class TestBeauty1 {
 
     public static void list1() {
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("keyword", "糖心 娜娜");
+        paramMap.put("keyword", "IPX-935");
         paramMap.put("limit", 20);
         paramMap.put("page", 1);
         String result = HttpUtil.post(BASE_URL + "/v2/home/search", paramMap);

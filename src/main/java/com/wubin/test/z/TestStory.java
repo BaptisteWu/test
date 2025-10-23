@@ -15,7 +15,7 @@ public class TestStory {
     }
 
     public static void story81() throws IOException {
-        String url = "https://www.yingsx.com/77_77623/37161774.html";
+        String url = "https://www.mrwenxue.com/xiaoshuo_347414/126422077_2.html";
         Document document = Jsoup.connect(url).get();
 //        System.out.println(document.html());
 
@@ -24,7 +24,7 @@ public class TestStory {
         Elements elements = document.select("div#content");
         String content = elements.text();
 //        System.out.println(content);
-        for (String str : content.split("     ")) {
+        for (String str : content.split(" ")) {
             if (str.length() > 100) {
                 StringBuilder sb = new StringBuilder(str);
                 System.out.println(sb.insert(50, "\n").insert(100, "\n"));
@@ -36,8 +36,8 @@ public class TestStory {
             }
             System.out.println();
         }
-        Elements elements2 = document.select("div.bottem1 > a");
-        System.out.println(elements2.get(3).attr("href").replace("//www.baode.cc/ob/69633/", ""));
+        Elements elements2 = document.select("div.bottem2 > a");
+        System.out.println(elements2.get(2).attr("href"));
     }
 
     //末日：我真不是土匪
@@ -67,22 +67,11 @@ public class TestStory {
         System.out.println(elements2.get(3).attr("href"));
     }
 
-    //灰烬领主
     public static void story83() throws IOException {
-        //诡异觉醒：开局吞鬼母女姐妹仨
-        //初窥门径，登堂入室，入微大成，炉火纯青，一代宗师，出神入化
-        String url = "https://www.shuhaige.net/311848/113733583.html";
-        //御兽，蛇君
-//        String url = "https://www.shuhaige.net/377044/129862550.html";
+        //大秦：开局扶苏被贬，忽悠他造反
+        String url = "https://www.shuhaige.net/363095/135917568.html";
         //星界第三纪元
 //        String url = "https://www.shuhaige.net/290341/130825976_2.html";
-        //御兽：万象与命途
-//        String url = "https://www.shuhaige.net/326515/132362670.html";
-        //灾变卡皇
-//        String url = "https://www.shuhaige.net/239580/92460799.html";
-        //黑暗召唤师：调教末世，为所欲为
-        //星辉、月耀、日冕、天芒、主宰、不朽、永恒、半神
-//        String url = "https://www.shuhaige.net/275992/104818784.html";
         //异世猎爵:从接肢神尸开始
 //        String url = "https://www.shuhaige.net/306417/122329123_2.html";
         //末世：薪火崛起
@@ -93,6 +82,9 @@ public class TestStory {
         System.out.println(document.select("div.bookname > h1").first().text());
 
         Elements elements = document.select("div#content > p");
+        if (elements.text().equals("")) {
+            elements = document.select("div.tt-title > p");
+        }
         String content = elements.text();
 //        System.out.println(content);
         for (String str : content.split(" ")) {

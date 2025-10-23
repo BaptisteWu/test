@@ -1,14 +1,14 @@
 package com.wubin.test.z;
 
-import org.apache.commons.io.FileUtils;
-import org.jsoup.Jsoup;
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.http.HttpRequest;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,45 +16,58 @@ import java.util.regex.Pattern;
 public class TestM3U8 {
 
     public static void main(String[] args) throws Exception {
-        download2();
+//        String result = HttpRequest.post("https://gaodengkijhsnbg.md14d3fdfw.cc/Web/VideoDetail")
+//                .form("id", "33062")
+//                .execute()
+//                .body();
+//        System.out.println(decrypt(result));
+        //MGTV/20250407/bd42e6e6001bbab2fd476c0389ad8a45/index.m3u8
+
+        String baseUrl = "https://sdfdssecef929.gxyhcm.com";
+        String path = "MGTV/20250407/bd42e6e6001bbab2fd476c0389ad8a45/index.m3u8";
+        String path2 = "MGTV/20250407/bd42e6e6001bbab2fd476c0389ad8a45";
+        String secretKey = "wB760Vqpk76oRSVA1TNz";
+        String fileName = "";
+        long t = new Date().getTime() / 1000;
+        String m3u8 = HttpRequest.get(baseUrl + "/" + path)
+                .form("sign", SecureUtil.md5(secretKey + "/" + path + t))
+                .form("t", t)
+                .execute()
+                .body();
+        List<String> list = extractUrl(m3u8);
+        byte[] key = HttpRequest.get(baseUrl + "/" + path2 + "/encrypt.key").execute().bodyBytes();
+        for (String ts : list) {
+            String newUrl = HttpRequest.get(baseUrl + "/" + path2 + "/" + ts)
+                    .execute().header("Location");
+            System.out.println(newUrl);
+            byte[] bytes = HttpRequest.get(newUrl).execute().bodyBytes();
+            FileUtil.writeBytes(decrypt(bytes, key, key), "");
+        }
+
     }
 
-    public static void download1() throws Exception {
-        String baseUrl = "https://d2gwumourdj5u6.cloudfront.net/20180830/PPPD-526/1000kb/hls/";
-        String name = "PPPD-526";
-
-        String indexUrl = baseUrl + "index.m3u8";
-        String index = Jsoup.connect(indexUrl).ignoreContentType(true).execute().body();
-
-        String keyUrl = baseUrl + "key.key";
-        byte[] key = Jsoup.connect(keyUrl).ignoreContentType(true).execute().bodyAsBytes();
-
+    public static List<String> extractUrl(String m3u8) {
         Pattern pattern = Pattern.compile(".*\\.ts");
-        Matcher matcher = pattern.matcher(index);
+        Matcher matcher = pattern.matcher(m3u8);
         List<String> list = new ArrayList<>();
         while (matcher.find()) {
-            list.add(matcher.group(0));
+            String ts = matcher.group(0);
+            list.add(ts);
+            System.out.println(ts);
         }
-
-        // 4105
-        for (int i = 1; i <= list.size(); ++i) {
-            System.out.println(i + ":" + list.get(i - 1));
-            String tsUrl = baseUrl + list.get(i - 1);
-            byte[] bytes = Jsoup.connect(tsUrl).ignoreContentType(true).execute().bodyAsBytes();
-            System.out.println(bytes.length);
-
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key, "AES"), new IvParameterSpec(key));
-            byte[] data = cipher.doFinal(bytes);
-            FileUtils.writeByteArrayToFile(
-                    new File("D:\\test\\m3u8\\Downloads\\java\\" + name + "\\" + i + ".ts"), data);
-        }
+        return list;
     }
 
-    public static void download2() throws IOException {
-        String tsUrl = "https://d26m4frfp45pk7.cloudfront.net/20171120/MIDE-301-C/550kb/hls/nuK4FtTc7361001.ts";
-        byte[] bytes = Jsoup.connect(tsUrl).ignoreContentType(true).execute().bodyAsBytes();
-        FileUtils.writeByteArrayToFile(new File("D:\\test2\\1.ts"), bytes);
+    public static byte[] decrypt(byte[] bytes, byte[] key, byte[] iv) throws Exception {
+        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
+        if (iv != null) {
+            IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
+            cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
+        } else {
+            cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
+        }
+        return cipher.doFinal(bytes);
     }
 
 }

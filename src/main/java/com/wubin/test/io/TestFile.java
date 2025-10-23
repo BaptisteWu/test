@@ -61,8 +61,8 @@ public class TestFile {
     }
 
     public static void rename() throws IOException {
-        String fileName1 = "D:\\test\\en.jpg";
-        String fileName2 = "D:\\test\\test\\test.jpg";
+        String fileName1 = "D:/test/en.jpg";
+        String fileName2 = "D:/test/test/test.jpg";
 
         // io 不会创建父文件夹，不报错，返回false
         File file = new File(fileName1);
@@ -78,9 +78,41 @@ public class TestFile {
         FileUtil.rename(new File(fileName1), fileName2, true);
     }
 
+    public static void copy() throws IOException {
+        String fileName1 = "D:/test/en.jpg";
+        String fileName2 = "D:/test/test/test.jpg";
+
+        // io
+//        try (InputStream is = new FileInputStream(fileName1);
+//             OutputStream os = new FileOutputStream(fileName2)) {
+//            byte[] buffer = new byte[1024];
+//            int len;
+//            while ((len = is.read(buffer)) > 0) {
+//                os.write(buffer, 0, len);
+//            }
+//        }
+
+        // nio
+//        try (FileChannel ifc = new FileInputStream(fileName1).getChannel();
+//             FileChannel ofc = new FileOutputStream(fileName2).getChannel()) {
+//            ofc.transferFrom(ifc, 0, ifc.size());
+//        }
+
+        // nio 不会创建父文件夹，报错
+        Files.copy(Paths.get(fileName1), Paths.get(fileName2), StandardCopyOption.REPLACE_EXISTING);
+
+        // apache 会创建父文件夹
+        FileUtils.copyFile(new File(fileName1), new File(fileName2));
+
+        // hutool 会创建父文件夹
+        FileUtil.copy(fileName1, fileName2, true);
+
+        // spring 不会创建父文件夹，报错
+        FileCopyUtils.copy(new File(fileName1), new File(fileName2));
+    }
+
     public static void writeByte() throws IOException {
-        String str = "D:/test/111.jpg";
-        byte[] bytes = Files.readAllBytes(Paths.get(str));
+        byte[] bytes = Files.readAllBytes(Paths.get("D:/test/111.jpg"));
 
         String fileName = "D:/test/test/test/111.jpg";
 
@@ -113,106 +145,6 @@ public class TestFile {
 
         // hutool
         FileUtil.readBytes(fileName);
-    }
-
-    public static void copy() throws IOException {
-        String source = "D:/test/test.txt";
-        String dest = "D:/test/test2.txt";
-
-        // io
-        try (InputStream is = new FileInputStream(source);
-             OutputStream os = new FileOutputStream(dest)) {
-            byte[] buffer = new byte[1024];
-            int len;
-            while ((len = is.read(buffer)) > 0) {
-                os.write(buffer, 0, len);
-            }
-        }
-
-        // nio
-        try (FileChannel ifc = new FileInputStream(source).getChannel();
-             FileChannel ofc = new FileOutputStream(dest).getChannel()) {
-            ofc.transferFrom(ifc, 0, ifc.size());
-        }
-
-        // nio
-        Files.copy(Paths.get(source), Paths.get(dest), StandardCopyOption.REPLACE_EXISTING);
-
-        // apache
-        FileUtils.copyFile(new File(source), new File(dest));
-
-        // spring
-        FileCopyUtils.copy(new File(source), new File(dest));
-    }
-
-    public static void createFile() throws IOException {
-        String fileName = "D:/test/test1/test2/test2.txt";
-
-        // io
-        File file = new File(fileName);
-        // 不会创建父文件夹，会报错
-        file.createNewFile();
-
-        // nio
-        // 不会创建父文件夹
-        Files.createFile(Paths.get(fileName));
-    }
-
-    public static void delete() throws IOException {
-        String fileName = "D:/test/test1";
-
-        // io
-        // 删除文件或者空的文件夹
-        File dir = new File(fileName);
-        dir.delete();
-
-        // nio
-        // 删除文件或者空的文件夹
-        Files.delete(Paths.get(fileName));
-        // 遍历删除所有
-        Files.walk(Paths.get(fileName))
-                .sorted(Comparator.reverseOrder())
-                .forEach(path -> {
-                    System.out.println(path);
-                    try {
-                        Files.delete(path);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-        Files.walkFileTree(Paths.get(fileName), new FileVisitor<Path>() {
-            @Override
-            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                System.out.println("preVisitDirectory : " + dir);
-                return FileVisitResult.CONTINUE;
-            }
-
-            @Override
-            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                System.out.println("visitFile : " + file);
-                Files.delete(file);
-                return FileVisitResult.CONTINUE;
-            }
-
-            @Override
-            public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
-                System.out.println("visitFileFailed : " + file);
-                throw exc;
-            }
-
-            @Override
-            public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-                System.out.println("postVisitDirectory : " + dir);
-                Files.delete(dir);
-                return FileVisitResult.CONTINUE;
-            }
-        });
-
-        // apache
-        // 删除文件夹，可非空
-        FileUtils.deleteDirectory(new File(fileName));
-        // 删除文件或者文件夹，可非空
-        FileUtils.deleteQuietly(new File(fileName));
     }
 
     public static void write() throws IOException {
@@ -332,6 +264,63 @@ public class TestFile {
         // 文件夹大小byte
         long size = FileUtils.sizeOfDirectory(new File("D:/test/test1"));
         System.out.println(size);
+    }
+
+    public static void delete() throws IOException {
+        String fileName = "D:/test/test1";
+
+        // io
+        // 删除文件或者空的文件夹
+        File dir = new File(fileName);
+        dir.delete();
+
+        // nio
+        // 删除文件或者空的文件夹
+        Files.delete(Paths.get(fileName));
+        // 遍历删除所有
+        Files.walk(Paths.get(fileName))
+                .sorted(Comparator.reverseOrder())
+                .forEach(path -> {
+                    System.out.println(path);
+                    try {
+                        Files.delete(path);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+        Files.walkFileTree(Paths.get(fileName), new FileVisitor<Path>() {
+            @Override
+            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                System.out.println("preVisitDirectory : " + dir);
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                System.out.println("visitFile : " + file);
+                Files.delete(file);
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+                System.out.println("visitFileFailed : " + file);
+                throw exc;
+            }
+
+            @Override
+            public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                System.out.println("postVisitDirectory : " + dir);
+                Files.delete(dir);
+                return FileVisitResult.CONTINUE;
+            }
+        });
+
+        // apache
+        // 删除文件夹，可非空
+        FileUtils.deleteDirectory(new File(fileName));
+        // 删除文件或者文件夹，可非空
+        FileUtils.deleteQuietly(new File(fileName));
     }
 
     public static void readAll(File file) {

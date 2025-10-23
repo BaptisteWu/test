@@ -66,7 +66,8 @@ public class TestHuTool {
         System.out.println(result);
     }
 
-    public static void uploadBase() {
+    //默认application/x-www-form-urlencoded
+    public static void uploadBase64() {
         //http://medical-record.zpsoftware.cn/api/file/upload/base64
         String result = HttpRequest.post("http://localhost:8075/file/upload/base64")
                 .header("content-type", "multipart/form-data")

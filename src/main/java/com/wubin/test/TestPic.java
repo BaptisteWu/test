@@ -1,7 +1,6 @@
 package com.wubin.test;
 
 import cn.hutool.core.img.ImgUtil;
-import cn.hutool.core.io.FileUtil;
 import com.jhlabs.image.ContrastFilter;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.name.Rename;
@@ -14,10 +13,9 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.awt.image.ConvolveOp;
-import java.awt.image.Kernel;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -43,6 +41,7 @@ public class TestPic {
 //        cut3();
 //        rotate();
 //        brightness();
+//        watermark();
 
 //        testHutool();
 //        testJhlabs();
@@ -50,25 +49,26 @@ public class TestPic {
 
     public static void testHutool() {
         //旋转
-//        ImgUtil.rotate(new File("D:\\test\\1111.jpg"), 90, new File("D:\\test\\8888.jpg"));
+//        ImgUtil.rotate(new File("D:\\test\\1111.jpg"), 90, new File("D:\\test\\222.jpg"));
         //裁剪
 //        ImgUtil.cut(new File("D:\\test\\1111.jpg"), new File("D:\\test\\2222.jpg"), new Rectangle(300, 0, 600, 200));
         //缩放
-//        ImgUtil.scale(new File("D:\\test\\555.jpg"), new File("D:\\test\\666.jpg"), 0.1f);
+//        ImgUtil.scale(new File("D:\\test\\555.jpg"), new File("D:\\test\\222.jpg"), 0.1f);
         //压缩
-//        ImgUtil.compress(new File("D:\\test\\1111.jpg"), new File("D:\\test\\2222.jpg"), 0.2f);
+//        ImgUtil.compress(new File("D:\\test\\1111.jpg"), new File("D:\\test\\222.jpg"), 0.2f);
         //灰化（黑白）
-//        ImgUtil.gray(new File("D:\\test\\1111.jpg"), new File("D:\\test\\9999.jpg"));
+//        ImgUtil.gray(new File("D:\\test\\1111.jpg"), new File("D:\\test\\3333.jpg"));
         //二进制化（黑白）
-        ImgUtil.binary(new File("D:\\test\\1111.jpg"), new File("D:\\test\\9999.jpg"));
+//        ImgUtil.binary(new File("D:\\test\\1111.jpg"), new File("D:\\test\\4444.jpg"));
         //翻转镜像
-//        ImgUtil.flip(new File("D:\\test\\1111.jpg"), new File("D:\\test\\9999.jpg"));
+//        ImgUtil.flip(new File("D:\\test\\1111.jpg"), new File("D:\\test\\222.jpg"));
         //图片类型转换
-//        ImgUtil.convert(new File("D:\\test\\1111.jpg"), new File("D:\\test\\9999.jpg"));
+//        ImgUtil.convert(new File("D:\\test\\1111.jpg"), new File("D:\\test\\222.jpg"));
         //切片
-//        ImgUtil.slice(new File("D:\\test\\1111.jpg"), new File("D:\\test\\9999"), 1000, 1000);
-        //添加文字水印
-//        ImgUtil.pressText();
+//        ImgUtil.slice(new File("D:\\test\\1111.jpg"), new File("D:\\test\\222"), 1000, 1000);
+//        添加文字水印
+        ImgUtil.pressText(new File("D:\\test\\1111.jpg"), new File("D:\\test\\5555.jpg"),
+                "衢州市第二人民医院", Color.gray, new Font("宋体", Font.BOLD, 30), 100, 100, 0.8f);
         //添加图片水印
 //        ImgUtil.pressImage();
     }
@@ -140,24 +140,46 @@ public class TestPic {
     }
 
     public static void brightness() throws IOException {
-        BufferedImage oldImage = ImageIO.read(new File("D:\\test\\1111.jpg"));
-        int width = oldImage.getWidth();
-        int height = oldImage.getHeight();
-        BufferedImage newImage = new BufferedImage(width, height, oldImage.getType());
+        BufferedImage bufferedImage = ImageIO.read(new File("D:\\test\\1111.jpg"));
+        int width = bufferedImage.getWidth();
+        int height = bufferedImage.getHeight();
         double factor = 1.75d;
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                int rgb = oldImage.getRGB(x, y);
+                int rgb = bufferedImage.getRGB(x, y);
                 int red = (rgb >> 16) & 0xff;
                 int green = (rgb >> 8) & 0xff;
                 int blue = rgb & 0xff;
                 red = Math.min(255, Math.max(0, (int) (red * factor)));
                 green = Math.min(255, Math.max(0, (int) (green * factor)));
                 blue = Math.min(255, Math.max(0, (int) (blue * factor)));
-                newImage.setRGB(x, y, (red << 16) | (green << 8) | blue);
+                bufferedImage.setRGB(x, y, (red << 16) | (green << 8) | blue);
             }
         }
-        ImageIO.write(newImage, "jpg", new File("D:\\test\\8888.jpg"));
+        ImageIO.write(bufferedImage, "jpg", new File("D:\\test\\6666.jpg"));
+    }
+
+    public static void watermark() throws IOException {
+        BufferedImage bufferedImage = ImageIO.read(new File("D:\\test\\1111.jpg"));
+        Graphics2D graphics2D = bufferedImage.createGraphics();
+        graphics2D.setColor(Color.gray);
+        graphics2D.setFont(new Font("宋体", Font.BOLD, 80));
+        graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.5f));
+        String watermarkText = "衢州市第二人民医院";
+        int width = bufferedImage.getWidth();
+        int height = bufferedImage.getHeight();
+        // 行间距：fontMetrics.getLeading()
+        // 基线到字体最高点的距离：fontMetrics.getAscent()
+        // 基线到字体最低点的距离：fontMetrics.getDescent()
+        FontMetrics fontMetrics = graphics2D.getFontMetrics();
+        int x = width / 2 - fontMetrics.stringWidth(watermarkText) / 2;
+        int y = height / 2 + (fontMetrics.getAscent() - fontMetrics.getDescent()) / 2;
+        graphics2D.rotate(Math.toRadians(-30), (double) width / 2, (double) height / 2);
+        graphics2D.drawString(watermarkText, x, y / 2);
+        graphics2D.drawString(watermarkText, x, y);
+        graphics2D.drawString(watermarkText, x, y / 2 * 3);
+        graphics2D.dispose();
+        ImageIO.write(bufferedImage, "jpg", new File("D:\\test\\5555.jpg"));
     }
 
     public static void cut99() throws IOException {

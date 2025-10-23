@@ -57,11 +57,11 @@ public class TestFastJson {
     }
 
     public static void main(String[] args) {
-//        objToStr();
+        objToStr();
 //        strToObj();
 
 //        listToStr();
-        strToList();
+//        strToList();
     }
 
 }

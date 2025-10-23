@@ -16,7 +16,9 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
 
 public class TestBeauty3 {
 
@@ -188,8 +190,8 @@ public class TestBeauty3 {
         }
     }
 
-    private static final SecretKeySpec KEY = new SecretKeySpec("f31b9d2297af6f83".getBytes(), "AES");
-    private static final IvParameterSpec IV = new IvParameterSpec("f31b9d2297af6f83".getBytes());
+    private static final SecretKeySpec KEY = new SecretKeySpec("gFzviOY0zOxVq1cu".getBytes(), "AES");
+    private static final IvParameterSpec IV = new IvParameterSpec("ZmA0Osl677UdSrl0".getBytes());
     private static final String CIPHER_ALGORITHM = "AES/CBC/PKCS5Padding";
 
     public static String decrypt(String str) throws Exception {
