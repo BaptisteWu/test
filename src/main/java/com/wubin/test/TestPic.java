@@ -2,12 +2,17 @@ package com.wubin.test;
 
 import cn.hutool.core.img.ImgUtil;
 import com.jhlabs.image.ContrastFilter;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGEncodeParam;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.name.Rename;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReadParam;
-import javax.imageio.ImageReader;
+import javax.imageio.*;
+import javax.imageio.metadata.IIOMetadata;
+import javax.imageio.metadata.IIOMetadataNode;
 import javax.imageio.stream.ImageInputStream;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -32,6 +37,12 @@ public class TestPic {
 //                .outputQuality(0.5)
 //                .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
 
+//        File file = new File("D:\\work\\medical-record\\6001454_3");
+//        for (String str : file.list()) {
+//            ImgUtil.rotate(new File("D:\\work\\medical-record\\6001454_3\\" + str),
+//                    90, new File("D:\\work\\medical-record\\6001454_99\\" + str));
+//        }
+
 //        cut99();
 //        cutAndScale1();
 //        cutAndScale2();
@@ -43,8 +54,48 @@ public class TestPic {
 //        brightness();
 //        watermark();
 
+        updateDpi();
 //        testHutool();
 //        testJhlabs();
+    }
+
+    public static void updateDpi() throws IOException {
+        BufferedImage image = ImageIO.read(new File("D:\\test\\11.jpg"));
+
+        JPEGImageEncoder jpegEncoder = JPEGCodec.createJPEGEncoder(new FileOutputStream("D:\\test\\22.jpg"));
+        JPEGEncodeParam jpegEncodeParam = jpegEncoder.getDefaultJPEGEncodeParam(image);
+        jpegEncodeParam.setDensityUnit(JPEGEncodeParam.DENSITY_UNIT_DOTS_INCH);
+        jpegEncodeParam.setQuality(0.9f, false);
+        jpegEncodeParam.setXDensity(300);
+        jpegEncodeParam.setYDensity(300);
+        jpegEncoder.setJPEGEncodeParam(jpegEncodeParam);
+        jpegEncoder.encode(image, jpegEncodeParam);
+
+//        ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
+//        ImageWriteParam param = writer.getDefaultWriteParam();
+//        param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+//        param.setCompressionQuality(1f);
+//
+//        IIOMetadata data = writer.getDefaultImageMetadata(new ImageTypeSpecifier(image), param);
+//        Element tree = (Element) data.getAsTree("javax_imageio_jpeg_image_1.0");
+//        Element jfif = (Element) tree.getElementsByTagName("app0JFIF").item(0);
+//        jfif.setAttribute("Xdensity", "300");
+//        jfif.setAttribute("Ydensity", "300");
+//        jfif.setAttribute("resUnits", "1");
+//        Node root = data.getAsTree("javax_imageio_jpeg_image_1.0");
+//        Node markerSequence = root.getFirstChild();
+//        Node app0JFIF = markerSequence.getNextSibling(); // JFIF marker
+//        Node marker1 = app0JFIF.getNextSibling(); // APP1 marker for EXIF (if any)
+//        Node dpiNode = marker1.getNextSibling(); // DPI node (XResolution and YResolution)
+//        if (dpiNode != null) {
+//            ((IIOMetadataNode) dpiNode).setAttribute("XResolution", "150"); // 设置X方向DPI
+//            ((IIOMetadataNode) dpiNode).setAttribute("YResolution", "150"); // 设置Y方向DPI
+//            ((IIOMetadataNode) dpiNode).setAttribute("ResolutionUnit", "2"); // 设置单位为英寸（1=无单位，2=英寸，3=厘米）
+//        }
+//
+//        writer.setOutput(ImageIO.createImageOutputStream(new File("D:\\test\\55.jpg")));
+//        writer.write(data, new IIOImage(image, null, data), param);
+//        writer.dispose();
     }
 
     public static void testHutool() {
@@ -67,8 +118,8 @@ public class TestPic {
         //切片
 //        ImgUtil.slice(new File("D:\\test\\1111.jpg"), new File("D:\\test\\222"), 1000, 1000);
 //        添加文字水印
-        ImgUtil.pressText(new File("D:\\test\\1111.jpg"), new File("D:\\test\\5555.jpg"),
-                "衢州市第二人民医院", Color.gray, new Font("宋体", Font.BOLD, 30), 100, 100, 0.8f);
+//        ImgUtil.pressText(new File("D:\\test\\1111.jpg"), new File("D:\\test\\5555.jpg"),
+//                "衢州市第二人民医院", Color.gray, new Font("宋体", Font.BOLD, 30), 100, 100, 0.8f);
         //添加图片水印
 //        ImgUtil.pressImage();
     }

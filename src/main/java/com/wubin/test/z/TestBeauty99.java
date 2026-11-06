@@ -54,7 +54,7 @@ public class TestBeauty99 {
                 if (arr.length > 4) {
                     String title = arr[4];
                     String path = arr[2] + ":" + arr[3];
-                    if (title.toUpperCase().contains("WANZ-0")/* && !title.toUpperCase().contains("JULIA")*/) {
+                    if (title.toUpperCase().contains("JUL293")/* && !title.toUpperCase().contains("JULIA")*/) {
                         System.out.println(path + ":" + title + ":" + arr[1]);
 
 //                        for (String target : targets) {

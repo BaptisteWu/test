@@ -26,11 +26,11 @@ public class TestString {
 
     public static void main(String[] args) {
         // [0, 8)
-        String str = "苏械注准20232020101";
-        System.out.println(str.indexOf("9"));
-        System.out.println(str.substring(0, 8));
-        System.out.println(str.substring(8));
-        System.out.println(StrUtil.sub(str, 0, 8));
+//        String str = "苏械注准20232020101";
+//        System.out.println(str.indexOf("9"));
+//        System.out.println(str.substring(0, 8));
+//        System.out.println(str.substring(8));
+//        System.out.println(StrUtil.sub(str, 0, 8));
 
 //        System.out.println(StringUtils.defaultIfEmpty(null, ""));
 
@@ -49,6 +49,10 @@ public class TestString {
 
 //        String str = "傻@冒，狗+东西";
 //        System.out.println(SensitiveWordHelper.replace(str));
+
+        String str = "10s*16s+70D*70D";
+        System.out.println(str);
+        System.out.println(str.replaceAll("\\*", "×"));
     }
 
 }

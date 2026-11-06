@@ -90,17 +90,18 @@ public class TestNumber {
 //        System.out.println(bigDecimal.toString());
 //        System.out.println(NumberUtil.toStr(bigDecimal));
 
+//        System.out.println(BigDecimal.valueOf(61).divide(BigDecimal.valueOf(60), BigDecimal.ROUND_UP).intValue());
+//        System.out.println(BigDecimal.valueOf(61).divide(BigDecimal.valueOf(60), 0, BigDecimal.ROUND_UP).intValue());
+
 //        DecimalFormat decimalFormat = new DecimalFormat("000");
 //        System.out.println(decimalFormat.format(1));
 //        System.out.println(decimalFormat.format(new BigDecimal("1")));
 
-//        System.out.println(NumberUtil.decimalFormat("00.00", 1));
-//        System.out.println(NumberUtil.decimalFormat("00.00", new BigDecimal("1")));
+        System.out.println(NumberUtil.decimalFormat("00", 1));
+        System.out.println(NumberUtil.decimalFormat("00.00", 1));
+        System.out.println(NumberUtil.decimalFormat("00.00", new BigDecimal("1")));
 
 //        System.out.println(NumberUtil.ceilDiv(239, 60));
-
-        System.out.println(BigDecimal.valueOf(61).divide(BigDecimal.valueOf(60), BigDecimal.ROUND_UP).intValue());
-        System.out.println(BigDecimal.valueOf(61).divide(BigDecimal.valueOf(60), 0, BigDecimal.ROUND_UP).intValue());
 
     }
 

@@ -54,7 +54,20 @@ public class TestJavaNet {
 
     public static void main(String[] args) throws IOException {
 //        select();
-        insert();
+//        insert();
+
+        URL url = new URL("https://www.baidu.com");
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        try (InputStream is = connection.getInputStream();
+             InputStreamReader isr = new InputStreamReader(is);
+             BufferedReader br = new BufferedReader(isr)) {
+            String line;
+            StringBuilder result = new StringBuilder();
+            while ((line = br.readLine()) != null) {
+                result.append(line);
+            }
+            System.out.println(result.toString());
+        }
     }
 
 }

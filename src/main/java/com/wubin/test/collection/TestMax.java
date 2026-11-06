@@ -18,9 +18,11 @@ public class TestMax {
 
 //        User user = Collections.max(list, Comparator.comparingInt(User::getId));
 
-        User user = list.stream().max(Comparator.comparingInt(User::getId)).get();
+        User user1 = list.stream().max(Comparator.comparingInt(User::getId)).get();
+        System.out.println(user1);
 
-        System.out.println(user);
+        User user2 = list.stream().max(Comparator.comparing(User::getName)).get();
+        System.out.println(user2);
     }
 
 }

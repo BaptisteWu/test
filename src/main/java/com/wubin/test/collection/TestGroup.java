@@ -6,10 +6,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.wubin.test.model.User;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TestGroup {
@@ -69,7 +66,13 @@ public class TestGroup {
             add(new User(2, "baptiste", date));
         }};
 
-        self(list);
+        Set<Integer> set = new HashSet<>();
+        for (User user : list) {
+            set.add(user.getId());
+        }
+        System.out.println(set);
+
+//        self(list);
 //        guava(list);
 //        lambda(list);
     }

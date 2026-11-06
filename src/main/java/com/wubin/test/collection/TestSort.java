@@ -61,7 +61,29 @@ public class TestSort {
 
     public static void main(String[] args) {
 //        arraySort();
-        listSort();
+//        listSort();
+
+//        List<String> list = new LinkedList<>();
+//        list.add("idNumber");
+//        list.add("medicalRecordNo");
+//        list.add("outTime");
+//        Collections.sort(list);
+//        list.forEach(System.out::println);
+
+        Date date = new Date();
+        List<User> list = new ArrayList<User>() {{
+            add(new User(1, "tom", date));
+            add(new User(2, "mary", date));
+            add(new User(3, "jack", date));
+            add(new User(4, "eric", date));
+            add(new User(5, "baptiste", date));
+        }};
+        Collections.reverse(list);
+        list.forEach(System.out::println);
+
+//        String str = list.stream().map(user -> "\"" + user.getName() + "\"")
+//                .collect(Collectors.joining(",", "", ""));
+//        System.out.println(str);
     }
 
 }

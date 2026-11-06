@@ -34,10 +34,20 @@
         }
 
         function decryptByDES() {
-            var str = 'gBt+DMk8lta2HwRPzP33IRB29SZ4F6I2muJP8AsVDhAJrEVFPiAhlwqaCVn4L5OmU7D48VD0lB5/5sw51eHNPg==';
-            var key = CryptoJS.enc.Utf8.parse('sgcc1234');
-            var decrypted = CryptoJS.DES.decrypt(str, key, {
-                mode: CryptoJS.mode.ECB,
+            // var str = 'gBt+DMk8lta2HwRPzP33IRB29SZ4F6I2muJP8AsVDhAJrEVFPiAhlwqaCVn4L5OmU7D48VD0lB5/5sw51eHNPg==';
+            // var key = CryptoJS.enc.Utf8.parse('sgcc1234');
+            // var decrypted = CryptoJS.DES.decrypt(str, key, {
+            //     mode: CryptoJS.mode.ECB,
+            //     padding: CryptoJS.pad.Pkcs7
+            // });
+            // console.log(decrypted.toString(CryptoJS.enc.Utf8));
+
+            var str = '4bSmYjYSz8WOhTu3YoIygG9lnw1NlgF+ibhnPFoX36yRkFkmBOKu3+VSaVEbyLO+t11PdRx7HWEvVtJawK4n0kYlXUxAfOBsEwP8RyLINpRKAMLI6gkitZbb5ANfwOz0diuZBOeOkD/6HT4A8eXBThFBw5UyODqYXXDx4BZd5fAA4Yn0R6f1y9UQ/di5wILezaPQKHREOm/L1YPoznbWdeCYvwV/o6H/QhLH0H5ZL4PlOiutdOqM1Ln1aqFPElc1iSLczXQ1zkE6Lbo1FVfQkQyR9Xrz2jJIClcg23Tvcj085f3WJxSg1sCCgkIrFfzCupcfFCp7ZdP2iGua6j267CR7J8XeTSLQW/l6PmlmFPKZhINwENOBaH8PuTUqu5j8zQSI+KLR3Fr6tX7GZ20Po8dKj/tYNCLx1YX6kBEnGMcENeCnmPyF1/zhKLYItDQX/e5zLl2h3nKlDkTIjLaYXJ/yLW5na7Rgkoqyz51mC4EnKtr4UB+RpalzTnRQPxP+48cWA8YwHUhH0VqRYVz6S8Vrlh0xCiQr10uvsn1cbKLEDth1LQ/tQ6nUZivXFsczwIfSt3ci534gzT5xcUATvDPjURZYuP572p4587RJeSLKqS7ECzqFuLlsxNJxP0BIsVtJn8lAwP2NoFojG4mrgU07lUXb7CNLrw8UJxgXrpkILM7APJp6U5TdKgi06brYa5y/QUU0Bag5angbNPLu7Ba7Re7wYMzD1socPf9Wpq742sF/qYpkml1P7gtFKj+msRwp34IMScTM2PKxKhAus2xXEfrQm3tvCeph5pedDjgXtR6C1XPFiAljjlbX0Xunke0X6MNVCSDJXmY7DnPGubqJ75Nhu8vbwKs0eVhr35qrL9iJv6mlHCUgcB1Y61H56cvwHGS5gIx5L8H5O8qz+0B/jb7d8M7vlwKj5Ut5UU/tl0bWiSEpHmmEVX7T5CB+sllP1oQx5VZaVntj+EVvQqsveTUy6A1geUnzFpb7FLY1Kmulj3ZUmeQOBK+r+FNVQrvBTH5ScM27f9GptCYu3g5RJ29nDjR+jrciSSylPrTYVs/c6ccwlCfPS+emcarUMp2UuIv4XSvjN5af7NswUQLD2dsnuiCSs/+86f4hM8yUxySmOUPIJ8P6aGb68XuJMZiS45/jsEbcswI1GNsRRWFs8Omow05eQpIccs47u/IVJ04mVzFGLlER9CcMxZ3a+67pCdqvPWjNbSdp24Vc2uYu6Yw2GAGkQjHdQM18Xs6GrANHQ/bgV+13Iks/UhOPgXotibhii/d7LCTMm5ly9ojNaFUEHeyxqlvmdOv6CLKsquyDx6Iks+9w+qEzSx06JUBgvcIVFPeTJx8W8vavuTlklrFASq39yJ4/3mq732ZRjCmAEQojBy07J4aD9wWnfub5W0HNbPfplBPImvTv28UYOFuWSg6P+SAfZnrO6kpei10/WfwOSJiy3CSD0bWH/G3BMg+nDgqg86mBQR+ukp/NeAPkQjFBYq7FnCDxyvA3P4q6xbcwxyK5H3GCEQ7Q7J1sQzQ0mejHUsv7f90EAS6QOZT8nKMsVlo7kGxPDXRkwxSD3MRUf6E9vgtn0Yu8+PjGkxfVrA9uKkmqmdNYBsak52PubXBYphFnb6M3vH7QUHogxmpT8sV0ALMBXs+y5jH6+t/Z68fIFRtpSDfE2NvcszbVMWj4j097PUC1w0UBKvxlh03ZYXjTvuSJFaGkk0OqVI9NlWihMgCKkTVAAQ==';
+            var key = CryptoJS.enc.Utf8.parse('NHboMHZerxFQ401E');
+            var iv = CryptoJS.enc.Utf8.parse('i7JeCEIMVrj2W9xN');
+            var decrypted = CryptoJS.AES.decrypt(str, key, {
+                iv: iv,
+                mode: CryptoJS.mode.CBC,
                 padding: CryptoJS.pad.Pkcs7
             });
             console.log(decrypted.toString(CryptoJS.enc.Utf8));
